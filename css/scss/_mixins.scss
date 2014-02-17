@@ -1,0 +1,28 @@
+@mixin device-width($width){
+	@media only screen and (max-width: $width * 6.25em){
+		@content;
+	}
+}
+
+@mixin font-size($size){
+	font-size: ($size) + px;
+	font-size: ($size / 10) + rem;
+}
+
+@function pxtoem($px){
+	@return $px * 0.0769827586em;
+}
+
+@mixin text-frame{
+    display: inline-block;
+    padding: 0.8em 2em;
+    text-transform: uppercase;
+}
+
+@mixin vertical-align {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}

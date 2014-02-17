@@ -1,0 +1,26 @@
+@import '//fast.fonts.net/cssapi/010b804f-458c-4a6b-bd85-115a510c3abf.css';
+
+@mixin brandon{
+	font-family:'BrandonGrotW01-Regular', sans-serif;
+	font-weight:normal;
+	-webkit-font-smoothing:antialiased;
+}
+
+@mixin brandon-bold{
+	font-family:'Brandon Grot W01 Bold', sans-serif;
+	font-weight:normal;
+	-webkit-font-smoothing:antialiased;
+}
+
+@mixin avenir{
+	font-family:'Avenir LT W01 65 Medium';
+	font-weight:normal;
+	-webkit-font-smoothing:antialiased;
+}
+
+@mixin avenir-bold{
+	font-family:'Avenir LT W01 85 Heavy';
+	font-weight:normal;
+	-webkit-font-smoothing:antialiased;
+}
+

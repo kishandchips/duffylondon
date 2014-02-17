@@ -1,0 +1,66 @@
+$light-black: #636363;
+$darker-white: #f6f6f6;
+$light-gold: #9f977a;
+$light-gold-border: #d1c7a0;
+
+$text-color: $light-black;
+$link-color: $light-black;
+$primary-button-color: $light-black;
+
+a.button, .button{
+    @include text-frame;
+    font-size: 0.75em;
+
+    &.black{
+        color: $primary-button-color;
+        border:1px solid $primary-button-color;
+
+        &:hover{
+            color: #fff;
+            background-color:$primary-button-color;
+        }
+    }
+
+    &.gold{
+        color: $light-gold;
+        border:1px solid $light-gold;
+
+        &:hover{
+            color: #fff;
+            background-color: $light-gold;
+        }
+    }
+
+    &.white{
+        color: #fff;
+        border:1px solid #fff;
+
+        &:hover{
+            color: $primary-button-color;
+            background-color: #fff;
+        }
+    }
+
+
+
+    &.bold{
+        @include brandon-bold;
+    }
+
+    &.shadow{
+        @include box-shadow(rgba(0,0,0,0.2) 0px 3px 3px 1px);
+    }
+}
+
+    .button.alt{
+        display: inline-block;
+        // padding: 1em 2.1em;
+        color: #333;
+        text-transform: uppercase;
+        background-color: #fff;
+        border:1px solid #333;
+        @include brandon-bold;
+        @include border-radius(0);
+        @include box-shadow(rgba(0,0,0,0.2) 0px 3px 3px 1px);
+    }
+

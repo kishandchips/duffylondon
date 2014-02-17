@@ -1,0 +1,232 @@
+/* =============================================================================
+   Forms
+   ========================================================================== */
+input:-webkit-autofill {
+	background-color:#fff;
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+input[type=text],
+input[type=email],
+input[type=url],
+input[type=tel],
+input[type=number],
+input[type=password], 
+textarea{
+	@include box-sizing(border-box);
+	color: #666;
+	border: none;
+	font-size: 16px;
+
+	&:focus {
+		color: #bab38f;
+		border-bottom: 3px solid #bab38f;
+		outline: none;
+	}
+}
+
+select {
+	vertical-align: top;
+
+
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	text-indent: 0.01px;
+    text-overflow: '';
+	appearance:none;
+	display: inline-block;
+	padding: 0.8em 60px 0.8em 10px;
+	font-size:0.75em;
+	@include brandon-bold;
+	text-transform: uppercase;
+	color: #333;
+	background:url(../images/misc/downarrow.png)no-repeat center right;
+	background-color:#fff;
+	background-size:contain;
+	border:1px solid #333;
+	@include border-radius(0);
+	@include box-shadow(rgba(0,0,0,0.2) 0px 3px 3px 1px);
+	
+	&:focus{
+		outline: none;
+	}
+}
+
+textarea {
+    resize: vertical;
+	height: 200px;
+}
+
+input[type=submit],
+input[type=reset] {
+	float: right;
+	color: #bab38f;
+	background-color: #fff;
+	border:1px solid #bab38f;
+	outline: none;
+
+	&:hover{
+	color: #fff;
+	background-color:#bab38f;
+	}
+}
+
+button::-moz-focus-inner,
+input[type="reset"]::-moz-focus-inner,
+input[type="button"]::-moz-focus-inner,
+input[type="submit"]::-moz-focus-inner,
+input[type="radio"]::-moz-focus-inner,
+option::-moz-focus-inner,
+select::-moz-focus-inner,
+input[type="file"] > input[type="button"]::-moz-focus-inner {
+	border: none !important;
+	outline: none !important;
+}
+
+fieldset {
+	border: none;
+	padding: 0;
+}
+
+.variations_form {
+	label{
+		@extend brandon;
+		font-weight:normal;
+		text-transform: uppercase;
+	}
+}
+/* =============================================================================
+   Gravity
+   ========================================================================== */
+
+.gform_wrapper {
+	max-width: 100% !important;
+ 	margin: 0 !important;
+
+ 	&.gf_browser_chrome {
+ 		.gfield_checkbox li input[type=checkbox],
+ 		.gfield_radio li input[type=radio],
+ 		.gfield_checkbox li input {
+ 			margin-left: 1px;
+ 		}
+
+ 	}
+ 	form {
+		.gform_heading {
+			margin-bottom: 0;
+			.gform_title {
+				font-weight: normal;
+				// @include font-size(20);
+				// margin-bottom: 10px;
+			}
+		}
+
+		div.validation_error {
+			text-align: center;
+			@include font-size(12);
+			font-weight: normal;
+			margin: 0 0 1em 0;
+			color: #e74c3c;
+			border: 3px solid #e74c3c;
+		}
+
+	 	.gform_body {
+			.gform_fields {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+				@extend .clearfix;
+
+	 			.gfield {
+	 				margin-bottom: 3em;
+					padding: 0;
+					&.gfield_error {
+						border: none;
+						background: none;
+						label {
+							color: #333;
+						}
+					}
+
+					.gfield_label{
+						@include brandon-bold;
+					}
+
+					&.gsection {
+						border-bottom: 1px solid #ececec;
+					}
+
+					&.hide-label {
+						.gfield_label {
+							display: none;
+						}
+					}
+					&.gf_left_half,
+					&.gf_right_half {
+						margin-bottom: 0;
+
+						@include device-width(5) {
+							width: auto;
+							float: none;
+						}
+					}
+
+					.ginput_container {
+						input[type=text],
+						input[type=email],
+						input[type=url],
+						input[type=tel],
+						input[type=number],
+						input[type=password], 
+						textarea,
+						select {
+							width: 100%;
+							padding: 0.4em;
+							border:1px solid #c2c2c2
+						}
+					}
+
+					.gfield_description {
+						&.validation_message {
+							padding: 0.5em 0 0 0 !important;
+							margin: 0;
+							color: #df5206;
+						}
+					}
+	 			}
+	 		}
+	 	}
+
+	 	.gform_footer {
+	 		margin: 1em 0;
+	 		padding: 0 1em 0 0;
+	 		@extend .clearfix;
+
+	 		.button {
+	 			display: inline-block;
+		        padding: 1em 2.1em;
+		        color: #333;
+		        text-transform: uppercase;
+		        background-color: #fff;
+		        border:1px solid #333;
+		        @include brandon-bold;
+		        @include border-radius(0);
+		        @include box-shadow(rgba(0,0,0,0.2) 0px 3px 3px 1px);
+
+	 			@media screen and (max-width:520px){
+	 				float:none;
+	 				width: 100%;
+	 			}
+
+	 		}
+	 	}
+	}
+}

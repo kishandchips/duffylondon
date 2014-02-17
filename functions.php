@@ -1,0 +1,373 @@
+<?php
+
+define('THEME_NAME', 'Tyndaris');
+
+require( get_template_directory() . '/inc/default/functions.php' );
+
+require( get_template_directory() . '/inc/default/hooks.php' );
+
+require( get_template_directory() . '/inc/default/shortcodes.php' );
+
+// Custom Actions
+add_image_size( 'main-nav-thumb', 155, 110, true );
+add_image_size( 'misc-thumb', 500, 500, true );
+add_image_size('full-width', 1200, 9999, false);
+
+//Breadcrumbs and Wrappers
+remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 );
+
+//Archive Single Product
+// remove_action( 'woocommerce_before_single_product', 'woocommerce_show_messages', 10);
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
+remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
+remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
+
+
+//CONTENT_PRODUCT
+remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price');
+remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart');
+remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash',10);
+remove_action( 'woocommerce_before_shop_loop','woocommerce_result_count', 20 );
+remove_action( 'woocommerce_before_shop_loop','woocommerce_catalog_ordering', 30);
+add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', 11);
+add_action('woocommerce_archive_options', 'woocommerce_result_count', 20);
+add_action('woocommerce_archive_options', 'woocommerce_catalog_ordering', 20);
+
+//SINGLE PRODUCT
+add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 25 );
+add_action('woocommerce_single_product_summary', 'custom_woocommerce_add_tagline', 15);
+add_action('woocommerce_after_single_product','custom_woocommerce_after_single_product',30 );
+add_action('custom_woocommerce_before_main_content', 'single_product_wrapper_start', 10);
+add_action('custom_woocommerce_after_main_content', 'single_product_wrapper_end', 10);
+remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
+remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15 );
+
+//CART
+remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10 );
+
+function custom_woocommerce_add_tagline(){
+	$tag = get_field('tagline');
+	echo '<p class="uppercase">' . $tag . '</p>';
+}
+
+function custom_woocommerce_after_single_product(){
+	$args = array(
+			'posts_per_page' => 6,
+			'columns' => 6,
+			'orderby' => 'rand'
+		);
+
+		woocommerce_related_products( apply_filters( 'woocommerce_output_related_products_args', $args ) );
+}
+
+function single_product_wrapper_start(){
+	echo '<div id="single-product">';
+}
+
+function single_product_wrapper_end(){
+	echo '</div>';
+}
+
+
+//SHORTCODES
+
+//Add Button
+function add_button( $atts, $content = null ) {
+	$url = site_url('/contact' );  
+    return '<a href=" ' . $url . ' " class="button alt">'.$content.'</a>';  
+}  
+
+//Product Details
+function display_product_details( ){
+	$content = get_field('product_details');
+	return $content;
+}
+
+add_shortcode( 'display-product-details', 'display_product_details' );
+add_shortcode( 'button', 'add_button' );
+
+
+//gforms_datepicker
+
+add_action( 'after_setup_theme', 'custom_setup_theme' );
+
+add_action( 'init', 'custom_init');
+
+add_action( 'wp', 'custom_wp');
+
+add_action( 'admin_menu', 'custom_remove_menus');
+
+add_action( 'widgets_init', 'custom_widgets_init' );
+
+add_action( 'wp_enqueue_scripts', 'custom_scripts', 30);
+
+add_action( 'wp_print_styles', 'custom_styles', 30);
+
+
+
+
+
+// Custom Filters
+
+add_filter( 'woocommerce_subcategory_count_html', 'custom_woocommerce_subcategory_count_html');
+
+function custom_woocommerce_subcategory_count_html(){
+	return false;
+}
+
+add_filter('woocommerce_product_thumbnails_columns', 'custom_woocommerce_thumbnails_columns');
+
+function custom_woocommerce_thumbnails_columns(){
+	return 2;
+}
+
+add_filter( 'loop_shop_columns', 'custom_woocommerce_shop_columns');
+
+function custom_woocommerce_shop_columns(){
+	return 6;
+}
+
+add_filter( 'woocommerce_enqueue_styles', 'custom_remove_your_shit');
+
+function custom_remove_your_shit(){
+	return false;
+}
+
+
+add_filter( 'template_include', 'custom_template_include', 99 );
+add_filter( 'query_vars', 'custom_query_vars');
+add_filter( 'nmi_menu_item_content', 'md_nmi_custom_content', 10, 3 );
+
+
+//Custom shortcodes
+
+add_shortcode( 'phone_number', 'custom_phone_number');
+
+
+
+function custom_setup_theme() {
+	
+	add_theme_support( 'automatic-feed-links' );
+	
+	add_theme_support( 'post-thumbnails' );
+
+	add_theme_support('woocommerce');
+
+	add_theme_support('editor_style');
+
+	//add_theme_support( 'post-formats', array( 'gallery' ) );
+
+
+	register_nav_menus( array(
+		'primary' => __( 'Primary', THEME_NAME ),
+		'subnavigation-test' => __( 'Testimonial', THEME_NAME ),
+		'subnavigation-press' => __( 'Press', THEME_NAME ),
+	) );
+
+	
+
+	//add_image_size( 'custom_medium', 706, 400, true);
+
+	add_editor_style('/editor-styles.css');
+
+	
+
+}
+
+function custom_init(){
+	require( get_template_directory() . '/inc/classes/custom-post-type.php' );
+	if(function_exists('get_field')) {
+		$testimonials_page = get_field('testimonials_page', 'options');
+		$testimonial = new Custom_Post_Type( 'testimonial', 
+	 		array(
+	 			'rewrite' => array( 'with_front' => false, 'slug' => get_page_uri($testimonials_page->ID) ),
+	 			'capability_type' => 'post',
+	 		 	'publicly_queryable' => true,
+	   			'has_archive' => true, 
+	    		'hierarchical' => false,
+	    		'exclude_from_search' => true,
+	    		'menu_position' => null,
+	    		'supports' => array('title', 'editor', 'page-attributes','thumbnail'),
+	    		'plural' => 'Testimonials'
+	   		)
+	   	);
+	   	$press_page = get_field('press_page', 'options');
+		$press = new Custom_Post_Type( 'press', 
+	 		array(
+	 			'rewrite' => array( 'with_front' => false, 'slug' => get_page_uri($press_page->ID) ),
+	 			'capability_type' => 'post',
+	 		 	'publicly_queryable' => true,
+	   			'has_archive' => true, 
+	    		'hierarchical' => false,
+	    		'exclude_from_search' => true,
+	    		'menu_position' => null,
+	    		'supports' => array('title', 'editor', 'page-attributes','thumbnail'),
+	    		'plural' => 'Press'
+	   		)
+	   	);
+	}
+}
+
+function custom_wp(){
+	
+}
+
+function custom_widgets_init() {
+
+	// 	/********************** Sidebars ***********************/
+
+	register_sidebar( array(
+		'name' => __( 'Default', THEME_NAME ),
+		'id' => 'default',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget' => '</aside>',
+		'before_title' => '<h6 class="widget-title">',
+		'after_title' => '</h6>',
+	) );
+
+	register_sidebar( array(
+		'name' => __( 'Footer', THEME_NAME ),
+		'id' => 'footer',
+		'before_widget' => '<aside id="%1$s" class="widget span one-third %2$s"><div class="inner">',
+		'after_widget' => '</div></aside>',
+		'before_title' => '<h6 class="widget-title">',
+		'after_title' => '</h6>',
+	) );
+
+	// 	/********************** Content ***********************/
+
+	// 	register_sidebar( array(
+	// 		'name' => __( 'Homepage Content', THEME_NAME ),
+	// 		'id' => 'homepage_content',
+	// 		'before_widget' => '<aside id="%1$s" class="widget span one-third %2$s">',
+	// 		'after_widget' => '</div></aside>',
+	// 		'before_title' => '<h5 class="widget-title text-center light-brown uppercase">',
+	// 		'after_title' => '</h5><div class="inner equal-height">',
+	// 	) );
+
+
+}
+
+function custom_remove_menus () {
+	global $menu;
+	$restricted = array(__('Links'), __('Comments'), __('Posts'));
+	end ($menu);
+	while (prev($menu)){
+		$value = explode(' ',$menu[key($menu)][0]);
+		if(in_array($value[0] != NULL?$value[0]:"" , $restricted)) unset($menu[key($menu)]);
+	}
+}
+
+function custom_scripts() {
+	wp_deregister_script('jquery');
+
+	wp_enqueue_script('modernizr', get_template_directory_uri().'/js/libs/modernizr.min.js');
+	wp_enqueue_script('jquery',  get_template_directory_uri().'/js/libs/jquery.min.js');
+	wp_enqueue_script('easing', get_template_directory_uri().'/js/plugins/jquery.easing.js', array('jquery'), '', true);
+	wp_enqueue_script('prettyphoto',  get_template_directory_uri().'/js/plugins/jquery.prettyphoto.js', array( 'jquery' ), '3.1.5', true );
+	wp_enqueue_script('main', get_template_directory_uri().'/js/main.js', array('jquery'), '', true);
+}
+
+
+function custom_styles() {
+	global $wp_styles;
+	// wp_deregister_style( 'woocommerce_prettyPhoto_css' );
+
+	wp_register_style( 'jquery-ui', get_template_directory_uri() . '/css/jquery-ui.css' );
+	wp_enqueue_style('jquery-ui');
+	wp_enqueue_style( 'style', get_template_directory_uri() . '/css/style.css' );
+	wp_enqueue_style( 'ie7', get_template_directory_uri() . '/css/ie7.css' );
+	// wp_enqueue_style( 'prettyphoto', get_template_directory_uri() . '/css/prettyphoto.css' );
+
+	$wp_styles->add_data('ie7', 'conditional', 'lt IE 8');
+}
+
+function custom_woocommerce_before_main_content(){
+
+}
+
+function custom_woocommerce_add_to_cart_text($text){
+	return __("Add to Cart", THEME_NAME);
+}
+
+
+function custom_woocommerce_checkout_fields($fields){
+	return $fields;
+}
+
+
+
+function custom_woocommerce_form_field_date($field, $key, $args, $value ){
+	
+	$checked = '';
+	
+	$field  = '<div class="form-row ' . esc_attr( implode( ' ', $args['class'] ) ) .'" id="field-' . esc_attr( $key ) . '">';
+	$field .= '<input type="hidden" class="datepicker-input" name="'. esc_attr($key).'" value="" id="input-' . esc_attr( $key ) . '"/>';
+	$field .= '</div>';
+
+	return $field;
+}
+
+function custom_woocommerce_form_field_radio($field, $key, $args, $value ){
+
+	if ( $args['required'] ) {
+		$required = ' <abbr class="required" title="' . esc_attr__( 'required', 'woocommerce'  ) . '">*</abbr>';
+	} else {
+		$required = '';
+	}
+
+	$checked = '';
+	
+	$field  = '<div class="form-row ' . esc_attr( implode( ' ', $args['class'] ) ) .'" id="' . esc_attr( $key ) . '_field">';
+	$field .= '<label class="field-label large-label" >' . $args['label'] . '</label>';
+	$field .= '<div class="options clearfix" >';
+	foreach($args['options'] as $option_key => $label){
+		$field .= '<div class="radio-field">';
+		$field .= '<input type="' . $args['type'] . '" class="input-radio" name="' . esc_attr( $key ) . '" id="' . esc_attr( $key.'-'.$option_key ) . '" value="'.$option_key.'" '.$checked .' />';
+		$field .= '<label for="' . esc_attr( $key.'-'.$option_key ) . '" class="radio">' . $label . '</label>';
+		$field .= '</div>';
+
+	}
+	$field .= '</div>';
+	$field .= '</div>';
+
+	return $field;
+}
+
+
+function custom_template_include( $template ) {
+	//die(get_query_var('upgrade'));
+	if ( is_single() && get_post_type() == 'product' && get_query_var('upgrade')) {
+		$template = locate_template(array('woocommerce/upgrade-single-product.php'));
+	}
+
+	return $template;
+
+}
+
+function custom_query_vars( $query_vars ){
+	$query_vars[] = 'upgrade';
+	return $query_vars;
+}
+
+function custom_woocommerce_add_to_cart_validation($valid){
+	global $woocommerce;
+	$woocommerce->cart->empty_cart();
+	return $valid;
+}
+
+function md_nmi_custom_content( $content, $item_id, $label ) {
+
+	$image = get_the_post_thumbnail( $item_id, 'main-nav-thumb', array( 'alt' => $label, 'title' => $label ) );
+	$content = '<p class="nav-title">' . $label . '</p>'.$image;
+  	return $content;
+}
+
+function cc_mime_types( $mimes ){
+	$mimes['svg'] = 'image/svg+xml';
+	return $mimes;
+}
+add_filter( 'upload_mimes', 'cc_mime_types' );
+
+
