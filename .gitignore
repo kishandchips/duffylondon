@@ -2,3 +2,4 @@
 .DS_Store
 .sass-cache
 /images/templates/Archive.zip
+.sftp-config.json

@@ -18,7 +18,7 @@ Template Name: FRONT PAGE
 	  
 		<?php $featured_query = new WP_Query( $args ); ?>  	      
 		<?php if ($featured_query->have_posts()) : while ($featured_query->have_posts()) : $featured_query->the_post(); ?>     
-		    <?php $product = get_product( $featured_query->post->ID );  ?>
+		    <?php //$product = get_product( $post->ID );  ?>
 		    <?php $img_url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
 		    <?php $id = $post->ID; ?>
 			<?php $icon_image = get_field('icon'); ?>
