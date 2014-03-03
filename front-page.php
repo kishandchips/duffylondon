@@ -1,3 +1,9 @@
+<?php
+/*
+Template Name: FRONT PAGE
+*/
+?>
+
 <?php get_header(); ?>
 
 <section class="featured-products">
@@ -19,27 +25,32 @@
 		    <?php $color = get_field('color', $id); ?>
 
 				<article class="featured-product">
-					
-					<div class="featured-image no-gutter" style="background-image:url(<?php echo $img_url; ?>);"><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"></a></div>
 
-			        <div class="featured-info no-gutter" style="background-image:url(<?php echo $img_url; ?>);">
+				        <div class="featured-info no-gutter" style="background-image:url(<?php echo $img_url; ?>);">
 
-						<div class="valign">
-							<div class="<?php echo strtolower($color); ?>">
-								<?php if($icon_image): ?>
-									<div class="product-icon <?php echo strtolower($color); ?>">
-										<?php echo file_get_contents($icon_image['url']); ?>
+							<div class="valign">
+								<div class="<?php echo strtolower($color); ?>">
+									<?php if($icon_image): ?>
+									<div>
+										<div class="product-icon <?php echo strtolower($color); ?>">
+											<?php echo file_get_contents($icon_image['url']); ?>
+										</div>
 									</div>
-								<?php endif; ?>
-				                <h2 class="brandon"><?php the_title(); ?></h2>
-				                <p><?php the_field('tagline'); ?></p>
-				                <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" class="button <?php echo strtolower($color); ?>">More</a>
-				            </div>
-						</div>
+									<?php endif; ?>
+					                <h2 class="brandon"><?php the_title(); ?></h2>
+					                <p><?php the_field('tagline'); ?></p>
+					                <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" class="button <?php echo strtolower($color); ?>">More</a>
+					            </div>
+							</div>
 
-						<div class="overlay" style="background-color:<?php the_field('overlay'); ?>"></div>
-						
-			        </div>
+							<div class="overlay" style="background-color:<?php the_field('overlay'); ?>"></div>
+							
+				        </div>
+
+						<div class="featured-image no-gutter" style="background-image:url(<?php echo $img_url; ?>);">
+							<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"></a>
+						</div>						
+
 				</article>
 
 		<?php endwhile; endif;  ?>

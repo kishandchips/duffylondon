@@ -54,6 +54,16 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 							<div class="inner <?php the_field('color'); ?>" >
 								<?php the_sub_field('content'); ?>
+								<?php the_field('product_details'); ?>
+								
+								<?php if(get_field('product_video')): ?>
+								<div id="video_player">
+								    <a href="<?php the_field('product_video')?>?iframe=true&width=540&height=420" data-rel="prettyPhoto[product-gallery]" title="My YouTube Video">
+								    	video
+								    </a>
+								</div>
+								<?php endif; ?>
+
 							</div>
 							<div class="overlay" style="background-color:<?php the_field('overlay'); ?>"></div>
 						</div>
@@ -70,6 +80,16 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 								<?php $color = get_field('color'); ?>
 								<div class="inner <?php the_field('color'); ?>" >
 									<?php the_sub_field('content'); ?>
+									<?php the_field('product_details'); ?>
+
+									<?php if(get_field('product_video')): ?>
+									<div id="video_player">
+									    <a href="<?php the_field('product_video')?>?iframe=true&width=540&height=420" data-rel="prettyPhoto[product-gallery]" title="My YouTube Video">
+									    	video
+									    </a>
+									</div>
+									<?php endif; ?>
+
 								</div>
 								<div class="overlay" style="background-color:<?php the_field('overlay'); ?>"></div>
 							</div>

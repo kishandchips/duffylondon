@@ -13,6 +13,9 @@ global $woocommerce;
 
 wc_print_notices();
 ?>
+<div class="page-header">
+	<h2 class="text-frame gold"><?php _e( 'Checkout', 'woocommerce' ) ?></h2>
+</div>
 	<div class="header col2-set">
 		<?php do_action( 'woocommerce_before_checkout_form', $checkout ); ?>
 	</div>

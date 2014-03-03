@@ -22,33 +22,35 @@ global $woocommerce; ?>
 	<div class="col-1">
 
 <?php endif; ?>
+		<div class="page-header">
+			<h2 class="text-frame gold"><?php _e( 'Login', 'woocommerce' ); ?></h2>			
+		</div>
 
-		<h2><?php _e( 'Login', 'woocommerce' ); ?></h2>
-		<form method="post" class="login">
-			<p class="form-row form-row-first">
-				<label for="username"><?php _e( 'Username or email', 'woocommerce' ); ?> <span class="required">*</span></label>
-				<input type="text" class="input-text" name="username" id="username" />
-			</p>
-			<p class="form-row form-row-last">
-				<label for="password"><?php _e( 'Password', 'woocommerce' ); ?> <span class="required">*</span></label>
-				<input class="input-text" type="password" name="password" id="password" />
-			</p>
-			<div class="clear"></div>
+		<form method="post" class="login clearfix">
+				<p class="form-row form-row-first">
+					<label for="username"><?php _e( 'Username or email', 'woocommerce' ); ?> <span class="required">*</span></label>
+					<input type="text" class="input-text" name="username" id="username" />
+				</p>
+				<p class="form-row form-row-last">
+					<label for="password"><?php _e( 'Password', 'woocommerce' ); ?> <span class="required">*</span></label>
+					<input class="input-text" type="password" name="password" id="password" />
+				</p>
+				<div class="clear"></div>
 
-			<p class="form-row">
-				<?php $woocommerce->nonce_field('login', 'login') ?>
-				<input type="submit" class="button" name="login" value="<?php _e( 'Login', 'woocommerce' ); ?>" />
-				<a class="lost_password" href="<?php
+				<p class="form-row">
+					<?php $woocommerce->nonce_field('login', 'login') ?>
+					<input type="submit" class="button" name="login" value="<?php _e( 'Login', 'woocommerce' ); ?>" />
+					<a class="lost_password" href="<?php
 
-				$lost_password_page_id = woocommerce_get_page_id( 'lost_password' );
+					$lost_password_page_id = woocommerce_get_page_id( 'lost_password' );
 
-				if ( $lost_password_page_id )
-					echo esc_url( get_permalink( $lost_password_page_id ) );
-				else
-					echo esc_url( wp_lostpassword_url( home_url() ) );
+					if ( $lost_password_page_id )
+						echo esc_url( get_permalink( $lost_password_page_id ) );
+					else
+						echo esc_url( wp_lostpassword_url( home_url() ) );
 
-				?>"><?php _e( 'Lost Password?', 'woocommerce' ); ?></a>
-			</p>
+					?>"><?php _e( 'Lost Password?', 'woocommerce' ); ?></a>
+				</p>
 		</form>
 
 <?php if (get_option('woocommerce_enable_myaccount_registration')=='yes') : ?>

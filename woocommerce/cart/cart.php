@@ -16,6 +16,10 @@ wc_print_notices();
 
 <?php do_action( 'woocommerce_before_cart' ); ?>
 
+<div class="page-header">
+	<h2 class="text-frame gold"><?php _e( 'Cart', 'woocommerce' ) ?></h2>
+</div>
+
 <div class="inner-container span ten">
 	<form action="<?php echo esc_url( $woocommerce->cart->get_cart_url() ); ?>" method="post">
 

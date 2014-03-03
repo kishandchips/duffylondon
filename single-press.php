@@ -23,9 +23,14 @@
 			<ul class="equal list clearfix">
 				<?php if (have_rows('press_release')): while (have_rows('press_release')): the_row(); ?>
 				<?php $image = get_sub_field('image'); ?>
-				<a href="<?php echo $image['url']; ?>" class="lightbox-btn">
-					<li class=" span one-fourth"><img src="<?php echo $image['sizes']['misc-thumb'];?>" alt="<?php echo $image['alt']; ?>"><h3><?php the_sub_field('name'); ?></h3></li>
-				</a>
+				
+					<li class=" span one-fourth">
+						<a href="<?php echo $image['url']; ?>" class="lightbox-btn">
+							<img src="<?php echo $image['sizes']['misc-thumb'];?>" alt="<?php echo $image['alt']; ?>">
+							<h3><?php the_sub_field('name'); ?></h3>
+						</a>
+					</li>
+
 				<?php endwhile; ?>
 				<?php endif; ?>
 			</ul>

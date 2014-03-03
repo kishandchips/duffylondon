@@ -45,8 +45,7 @@ $woocommerce_loop['loop']++;
 		?>
 
 		<h3>
-<!-- 			CONTENT-PRODUCT_CAT
- -->			<?php
+		<?php
 				echo $category->name;
 
 				if ( $category->count > 0 )

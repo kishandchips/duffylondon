@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html <?php language_attributes(); ?>>
+<!--[if lt IE 7]>      <html xmlns:fb="http://ogp.me/ns/fb#" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html xmlns:fb="http://ogp.me/ns/fb#" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html xmlns:fb="http://ogp.me/ns/fb#" class="no-js lt-ie9"> <![endif]-->
+<!--[if IE 9]>         <html xmlns:fb="http://ogp.me/ns/fb#" class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 9]><!--> <html xmlns:fb="http://ogp.me/ns/fb#" class="no-js"> <!--<![endif]-->
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,14 +12,13 @@
     <script type="text/javascript">
 		var themeUrl = '<?php bloginfo( 'template_url' ); ?>';
 		var baseUrl = '<?php bloginfo( 'url' ); ?>';
+
 	</script>
 
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
-        <!--[if lt IE 9]>
-            <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'template_url' ); ?>/css/style-ie.css"/>
-        <![endif]-->
+
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
@@ -27,6 +30,7 @@
 <div class="site-container clearfix">
     
     <header id="header">
+
         <nav>
 
             <h1 class="mob-logo">

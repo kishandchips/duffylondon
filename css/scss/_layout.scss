@@ -16,7 +16,6 @@ body{
 
 }
 
-
 .site-container{
     width:100%;
     max-width:1600px;
@@ -32,6 +31,10 @@ body{
             }
         }
     }
+}
+
+.lt-ie9 .site-container{
+    min-width: 1024px;
 }
 
 main{
@@ -64,9 +67,17 @@ main{
 
 }
 
+.lt-ie9 main{
+    position: relative;
+    margin-top:0;
+    margin-bottom: 0;
+}
+
 /////////////////////////////
 ///////////////////////////////  *HEADER
 /////////////////////////////
+
+
 
 #header{
     position: fixed;
@@ -75,15 +86,11 @@ main{
     width: 100%;
     max-width: 1600px;
     background-color: #fff;
-    border-top:15px solid #000;
-    border-right:15px solid #000;
-    border-left:15px solid #000;
+    border-top: 15px solid #000;
     border-bottom:1px solid #000;
     @include box-sizing(border-box);
 
     @media screen and (max-width: 768px) {
-        border-left:none;
-        border-right:none;
         border-top:none;
     }
 
@@ -96,12 +103,24 @@ main{
     }
 }
 
+.lt-ie9 #header{
+    position: relative;
+}
+
 #header nav{
     overflow: hidden;
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
-    padding:30px 0;
+    padding:30px 5%;
     text-align: center;
+    border-right:15px solid #000;
+    border-left:15px solid #000;
+    @include box-sizing(border-box);
+
+    @media screen and (max-width:768px){
+        border-left:none;
+        border-right:none;
+    }
 }
 
 .mob-logo{
@@ -126,8 +145,9 @@ main{
     display: inline-block;
     width: 144px;
     height: 63px;
-    background: url(../images/logos/duffy-logo.png)no-repeat;
-    background: url(../images/logos/duffy-logo.svg)no-repeat;
+    background-image: url(../images/logos/duffy-logo.png);
+    background-image: url(../images/logos/duffy-logo.svg), none;
+    background-repeat:no-repeat;
     background-size:cover;
     text-indent:-9999px;
 }
@@ -167,13 +187,19 @@ main{
 /////////////////////////////// *HOME
 /////////////////////////////
 
+
 .featured-product{
     position: relative;
+    height:0;
     margin-bottom: 10px;
-    padding-top:45%;
+    padding-bottom:45%;
+
+    .wrapper{
+        position: relative;
+    }
 
     @media screen and (max-width: 720px){
-        padding-top: 60%;
+        padding-top: 55%;
     }
 
     @media screen and (max-width:480px){
@@ -204,10 +230,9 @@ main{
     position: absolute;
     z-index: 2;
     top:0;
-    right:0;
-    bottom:0;
     left:0;
     width: 40%;
+    height: 100%;
     padding: 0 5%;
     background-size: 300%;
     background-position:center;
@@ -254,6 +279,7 @@ main{
 // MISC PRODUCTS
 
 .misc-products{
+    position: relative;
     overflow: hidden;
     margin:0 -5px;
 
@@ -416,6 +442,7 @@ main{
     .related.products{
         position: relative;
         margin-top: 2.5em;
+        padding-bottom: 6.25em;
     }
 }
 
@@ -433,6 +460,26 @@ div.thumbnails {
 
         a{
             text-align: center;
+        }
+    }
+}
+
+#video_player{
+    padding-top: 1em;
+    text-align: center;
+
+    a{
+        color: #fff;
+        padding:0.8em 2em;
+        font-size: 0.75em;
+        text-transform: uppercase;
+        background-color:#000;
+        border:1px solid black;
+
+        &:hover{
+            color: #000;
+            background-color: #fff;
+
         }
     }
 }
@@ -712,6 +759,7 @@ div.thumbnails {
 
 .fohohfoh{
     width: 50%;
+    padding-top: 2em;
     margin:0 auto;
 
     @media screen and (max-width:768px){
@@ -764,6 +812,15 @@ div.thumbnails {
 
 }
 
+.lt-ie9 #footer{
+    position: relative;
+    z-index: 0;
+    
+    &:after{
+        display: none;
+    }
+}
+
 .main-nav{
     width: 100%;
     max-width: 1570px;
@@ -798,6 +855,7 @@ div.thumbnails {
 
         >a{
             display: inline-block;
+            width: 100%;
             max-width: 180px;
 
             @media screen and (max-width:720px){
@@ -875,7 +933,7 @@ div.thumbnails {
         
         > .menu-item a{
             display: inline-block;
-            margin-bottom: 1em;
+            margin-bottom: 0.6em;
             font-size: 0.875em;
             text-transform: uppercase;
             text-align: center;
@@ -891,16 +949,16 @@ div.thumbnails {
 
 .social-links{
     padding:1em 0;
-    text-align: center;
     border-top:1px solid #ccc;
+    text-align: center;
 
     a{
         display: inline-block;
-        margin:0 1.5em;
+        margin:0 1.5em 0.5em 1.5em;
         text-transform: uppercase;
 
     @media screen and (max-width:900px) {
-        font-size: 80%;
+        font-size: 60%;
     }
 
     @media screen and (max-width:720px){
@@ -937,6 +995,7 @@ div.thumbnails {
     input[type="password"]{
         padding: 0.5em;
         color: #333;
+        border: 1px solid #d6d6d6;
         border-bottom:3px solid #BAB38F
     }
 
@@ -947,14 +1006,165 @@ div.thumbnails {
         }
     }
 
+// THANK YOU PAGE
     &.thank-you{
+        padding-left:25%;
+        padding-right:25%;
         text-align: center;
 
-        p{
-            margin:0;
+        @media screen and (max-width:1200px){
+            padding-left:20%;
+            padding-right:20%;
+        }
+
+        @media screen and (max-width:800px){
+            padding-left:10%;
+            padding-right:10%;
+        }
+
+        @media screen and (max-width:600px){
+            padding-left:5%;
+            padding-right:5%;
+        }
+
+        @media screen and (max-width:480px){
+            padding-left:0;
+            padding-right:0;
+        }
+
+        p.success{
+            margin: 1.125em 0 0 0;
+            padding: 0.2em 0;
+            color: #fff;
+            background-color: $light-gold;
+        }
+
+        ul.order_details{
+            width: 100%;
+            margin: 0 0 3em 0;
+            text-align: center;
+            background-color: #fff;
+            @include box-sizing(border-box);
+            @include border-radius(3px);
+
+            li{
+                float: none;
+                display: inline-block;
+                margin:0 0 0 1em;
+                padding:1em;
+
+                &:first-child{
+                    margin-left: 0;
+                } 
+            }
+        }
+
+        table.order_details{
+            width: 100%;
+            margin-top: 1.125em;
+            margin-bottom: 0;
+            @include box-sizing(border-box);
+        }
+        
+        header{
+            display: block;
+            width: 100%;
+            margin-top: 1.125em;
+
+            h2{
+                margin: 0;
+            }
+        }
+        dl.customer_details{
+            width: 100%;
+            padding:2em;
+            text-align: left;
+            background-color: #fff;
+            @include box-sizing(border-box);
+            @include border-radius(3px);
+
+            span{
+                display: block;
+
+                &:first-child{
+                    margin-bottom: 0.5em;
+                }
+            }
+
+            dt{
+                display: inline-block;
+                margin-right: 0.5em;
+                @include avenir-bold;
+            }
+            
+            dt:first-child{
+                margin-left:0;
+            }
+
+            dd{
+                display: inline-block;
+                margin: 0;
+            }
         }
     }
-}
+
+//My Account
+    &.my-account{
+
+        .title{
+            h2{
+                margin: 1em 0;
+                color: $light-gold;
+                text-align: center;
+                text-transform: uppercase;
+            }
+        }
+
+        >header{
+            color:#fff;
+            text-align: center;
+            background-color: #2e2c2c;
+
+            p{
+                padding:1em;
+            }
+
+            a{
+                color: $light-gold;
+            }
+        }    
+    }
+
+    .addresses{
+        width: 100%;
+        text-align: left;
+        @include box-sizing(border-box);
+
+        >div{
+            float: left;
+            width:50%;
+
+            @media screen and (max-width:768px){
+                width: 100%;
+            }
+        }
+
+        h3{
+            margin: 0;
+        }
+
+        header{
+            margin-top: 0;
+            margin-bottom: 0.5em;
+        }
+
+        address{
+            margin-bottom: 1em;
+        }
+    }
+
+}// messages-container
+
 
 .line-header{
     height: 3px;
@@ -986,6 +1196,17 @@ div.thumbnails {
         
         label{
             margin-bottom: 0.5em;
+        }
+    }
+}
+
+.woocommerce-account .woocommerce{
+    .login{
+        padding-right:25%;
+        padding-left:25%;
+
+        .form-row input[type="submit"]{
+            float: none;
         }
     }
 }

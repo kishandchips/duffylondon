@@ -44,12 +44,11 @@
 		left: 1em;
 		font-family: sans-serif;
 		font-size:1em;
-		// line-height: 1.5;
+		line-height: 1.5;
 		text-align: center;
 		color: #fff;
 		text-shadow:0 1px 0 rgba(0,0,0,0.2);
-		@include border-radius(1em);
-		// padding-top:1em;
+		@include border-radius(1em);	
 	}
 
 	a {
@@ -72,7 +71,7 @@
 	margin:0;
 	// border-top:3px solid #ac9725;
 	&:before {
-		background-color:#BAB38F;
+		// background-color:#BAB38F;
 		content: "\2713";
 	}
 }
@@ -81,16 +80,16 @@
 	border-bottom:none;
 	// border-top:3px solid #1e85be;
 	&:before {
-		background-color:#1e85be;
+		// background-color:#1e85be;
 		content: "i";
 		font-family: Times, Georgia, serif;
 		font-style: italic;
 	}
 }
 .woocommerce-error {
-	border-top:3px solid #b81c23;
+	// border-top:3px solid #b81c23;
 	&:before {
-		background-color:#b81c23;
+		// background-color:#b81c23;
 		content: "\00d7";
 		font-weight: 700;
 	}
@@ -121,9 +120,26 @@
 		font-size: 0.92em;
 	}
 
-	p.cart-empty, p.return-to-shop{
-		padding: 2em 0;
-		text-align: center;
+	p span.cart-empty{
+		display: inline-block;
+		padding:3em 0;
+    	text-transform: uppercase;
+    	color:$light-gold;
+	}
+
+	span.return-to-shop{
+		display: block;
+		margin-top: 2em;
+		padding-bottom:0.2em;
+
+		a.button{
+			color: #fff;
+			padding: 0;
+
+			&:hover{
+				border-bottom: 2px solid #fff;
+			}
+		}
 	}
 
 	.header.col2-set {
@@ -451,8 +467,7 @@
 	ul.products {
 		position: relative;
 		z-index: 1;
-		margin:0 -10px; 
-		padding-bottom: 70px;			
+		margin:0 -10px; 		
 
 		@media screen and (max-width: 768px){
 			margin: 0;
@@ -466,6 +481,12 @@
     		img{
     			width: 100%;
     			height: auto;
+    		}
+
+    		h3{
+    			@media screen and (max-width:720px){
+    				font-size: 0.8em;
+    			}
     		}
 
 			@media screen and (max-width:1024px){
@@ -711,6 +732,12 @@
 		@media screen and (max-width:600px){
 			font-size: 80%;
 			padding: 1em 0;
+		}
+
+		input[type="submit"]{
+			padding: 0.8em 2em;
+			font-size: 0.75em;
+			text-transform: uppercase;
 		}
 	}
 
@@ -1591,9 +1618,6 @@
 				margin: 0 0 1em;
 
 				select {
-					width: 48%;
-					float:left;
-					margin-right: 3.8%;
 					&:nth-child(3n) {
 						margin-right: 0;
 					}

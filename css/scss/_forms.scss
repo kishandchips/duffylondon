@@ -59,6 +59,13 @@ select {
 		outline: none;
 	}
 }
+select::-ms-expand {
+    display: none;
+}
+
+.lt-ie9 select{
+	padding-right:5px;
+}
 
 textarea {
     resize: vertical;

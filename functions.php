@@ -1,6 +1,6 @@
 <?php
 
-define('THEME_NAME', 'Tyndaris');
+define('THEME_NAME', 'duffy');
 
 require( get_template_directory() . '/inc/default/functions.php' );
 
@@ -149,15 +149,9 @@ add_shortcode( 'phone_number', 'custom_phone_number');
 function custom_setup_theme() {
 	
 	add_theme_support( 'automatic-feed-links' );
-	
 	add_theme_support( 'post-thumbnails' );
-
 	add_theme_support('woocommerce');
-
 	add_theme_support('editor_style');
-
-	//add_theme_support( 'post-formats', array( 'gallery' ) );
-
 
 	register_nav_menus( array(
 		'primary' => __( 'Primary', THEME_NAME ),
@@ -234,18 +228,6 @@ function custom_widgets_init() {
 		'before_title' => '<h6 class="widget-title">',
 		'after_title' => '</h6>',
 	) );
-
-	// 	/********************** Content ***********************/
-
-	// 	register_sidebar( array(
-	// 		'name' => __( 'Homepage Content', THEME_NAME ),
-	// 		'id' => 'homepage_content',
-	// 		'before_widget' => '<aside id="%1$s" class="widget span one-third %2$s">',
-	// 		'after_widget' => '</div></aside>',
-	// 		'before_title' => '<h5 class="widget-title text-center light-brown uppercase">',
-	// 		'after_title' => '</h5><div class="inner equal-height">',
-	// 	) );
-
 
 }
 
@@ -369,5 +351,3 @@ function cc_mime_types( $mimes ){
 	return $mimes;
 }
 add_filter( 'upload_mimes', 'cc_mime_types' );
-
-
