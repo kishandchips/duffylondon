@@ -1,9 +1,3 @@
-<?php
-/*
-Template Name: FRONT PAGE
-*/
-?>
-
 <?php get_header(); ?>
 
 <section class="featured-products">
@@ -12,11 +6,11 @@ Template Name: FRONT PAGE
 			    'post_type' => 'product',  
 			    'meta_key' => '_featured',  
 			    'meta_value' => 'yes',  
-			    'posts_per_page' => 5  
+			    'posts_per_page' => 5
 			); 
 		?>  
 	  
-		<?php $featured_query = new WP_Query( $args ); ?>  	      
+		<?php $featured_query = new WP_Query( $args ); ?>
 		<?php if ($featured_query->have_posts()) : while ($featured_query->have_posts()) : $featured_query->the_post(); ?>     
 		    <?php //$product = get_product( $post->ID );  ?>
 		    <?php $img_url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
@@ -59,20 +53,17 @@ Template Name: FRONT PAGE
 
 <section class="misc-products">
 
-	<?php $posts = get_field('selected');
+	<?php $products = get_field('selected');
 	 
-	if( $posts ): ?>
-	    <?php foreach( $posts as $post): // variable must be called $post (IMPORTANT) ?>
-	        <?php setup_postdata($post); ?>
-
+	if( $products ): ?>
+	    <?php foreach( $products as $product): // variable must be called $post (IMPORTANT) ?>
+	    
 	        <div class="misc-product span one-third">
-	            <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
-	            	<?php the_post_thumbnail('misc-thumb');?>
+	            <a href="<?php the_permalink(); ?>" title="<?php echo get_the_title($product->ID); ?>">
+	            	<?php echo get_the_post_thumbnail($product->ID, 'misc-thumb');?>
 	            </a>
 	         </div>
 	    <?php endforeach; ?>
-
-	    <?php wp_reset_postdata(); // IMPORTANT - reset the $post object so the rest of the page works correctly ?>
 	<?php endif; ?>
 
 </section>

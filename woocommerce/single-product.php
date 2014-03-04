@@ -8,6 +8,7 @@
  * @package 	WooCommerce/Templates
  * @version     1.6.4
  */
+global $wp_query;
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
@@ -16,7 +17,7 @@ get_header('shop'); ?>
 		<?php do_action('custom_woocommerce_before_main_content', 'single_product_wrapper_start'); ?>
 
 			<?php while ( have_posts() ) : the_post(); ?>
-			 
+			 	
 			 	<?php $template = get_field('template'); ?>
 			 	
 			 	<?php 

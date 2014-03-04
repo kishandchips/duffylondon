@@ -351,3 +351,20 @@ function cc_mime_types( $mimes ){
 	return $mimes;
 }
 add_filter( 'upload_mimes', 'cc_mime_types' );
+
+
+add_filter('parse_query', 'custom_parse_query');
+
+function custom_parse_query($query) {
+	if (!$query->is_main_query())
+		return;
+
+	if(!is_admin() && !is_product() ){
+		$query->query_vars['tax_query'][] = array(
+			'taxonomy' => 'language',
+			'field'    => 'term_taxonomy_id',
+			'terms'    => 74,
+			'operator' => 'IN'
+		);
+	}
+}

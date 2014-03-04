@@ -41,6 +41,7 @@ main{
     position: relative;
     z-index: 105;
     margin:139px 0 1000px 0;
+    margin:139px 0 100vh 0;
     padding:0;
     background-color: #fff;
     border-left: 15px solid #000;
@@ -101,6 +102,49 @@ main{
     @media screen and (max-height:700px){
         position: relative;
     }
+
+
+    .language-selector {
+        float: right;
+        margin: 0 0.3em 0 0;
+        @extend .clearfix;
+
+        li {
+            float: left;
+            a {
+                display: inline-block;
+                border: 1px solid #636363;
+                border-right: none;
+                padding: 1em;
+                background: #FFF;
+                @include font-size(8);
+                text-transform: uppercase;
+
+                
+
+                &:hover {
+                    color: #FFF;
+                    background: #5a5a5a;
+                } 
+            }
+
+            &:last-child {
+                a {
+                    border-right: 1px solid #636363;
+                }
+            }
+
+            &.current-lang a {
+                color: #FFF;
+                background: #636363;
+                &:hover {
+                    color: #FFF;
+                }
+            }
+        }
+    }
+
+
 }
 
 .lt-ie9 #header{
@@ -151,6 +195,7 @@ main{
     background-size:cover;
     text-indent:-9999px;
 }
+
 
 /////////////////////////////
 /////////////////////////////// *ARCHIVES

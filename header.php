@@ -23,9 +23,9 @@
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
 <div id="lightbox">
-        <div class="content"></div>
-        <div class="loader"></div>
-        <div class="overlay"></div>
+    <div class="content"></div>
+    <div class="loader"></div>
+    <div class="overlay"></div>
 </div>
 <div class="site-container clearfix">
     
@@ -49,6 +49,9 @@
                 <?php global $woocommerce; ?> 
                 <?php echo sprintf(_n('%d item', '%d items', $woocommerce->cart->cart_contents_count, 'woothemes'), $woocommerce->cart->cart_contents_count);?>
             </a>
+            <?php if(function_exists('pll_the_languages') && is_product()): ?>
+            <ul class="language-selector clearfix"><?php pll_the_languages(array('hide_if_no_translation' => 1)); ?></ul>
+            <?php endif; ?>
         </nav>
     </header>
 
