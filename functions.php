@@ -359,7 +359,8 @@ function custom_parse_query($query) {
 	if (!$query->is_main_query())
 		return;
 
-	if(!is_admin() && !is_product() ){
+	//if(!is_admin() && isset($query->query_vars['post_type']) && $query->query_vars['post_type'] != 'product' ){
+	if(!is_admin() && (is_post_type_archive('product') || is_tax('product_cat'))){
 		$query->query_vars['tax_query'][] = array(
 			'taxonomy' => 'language',
 			'field'    => 'term_taxonomy_id',
