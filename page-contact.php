@@ -26,7 +26,7 @@ Template Name: Contact Page
 
 			<div class="details">
 				<?php the_field('details'); ?>
-				<a href="<?php the_field('map_directions'); ?>" title="Google Map Directions to Duffy London">Get directions on google maps.</a>
+				<a href="<?php the_field('map_directions'); ?>" title="Google Map Directions to Duffy London" target="_blank">Get directions on google maps.</a>
 			</div>
 		</div>
 	</div>

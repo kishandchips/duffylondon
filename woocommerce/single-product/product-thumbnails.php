@@ -13,10 +13,13 @@ global $post, $product, $woocommerce;
 
 $attachment_ids = $product->get_gallery_attachment_ids();
 
-if ( $attachment_ids && count($attachment_ids) > 1 ) {
+if ( $attachment_ids ) {
 	?>
-	<div class="thumbnails"><?php
+	<div class="thumbnails">
+	<div class="row">
+		
 
+		<?php
 		$loop = 0;
 		$columns = apply_filters( 'woocommerce_product_thumbnails_columns', 2 );
 
@@ -39,11 +42,25 @@ if ( $attachment_ids && count($attachment_ids) > 1 ) {
 			$image_class = esc_attr( implode( ' ', $classes ) );
 			$image_title = esc_attr( get_the_title( $attachment_id ) );
 
-			echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', sprintf( '<a href="%s" class="%s span five" title="%s"  data-rel="prettyPhoto[product-gallery]">%s</a>', $image_link, $image_class, $image_title, $image ), $attachment_id, $post->ID, $image_class );
+			$loop++;			
+			
+			$template = get_field('template');
+			if($template == 'highlight'){
+				$image = null;
+				echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', sprintf( '<a href="%s" class="%s span five" title="%s"  data-rel="prettyPhoto[product-gallery]">%s</a>', $image_link, $image_class, $image_title, $image ), $attachment_id, $post->ID, $image_class );
+			} else{
+				$no_thumbnails = get_field('no_thumbnails');
 
-			$loop++;
+				if($loop > $no_thumbnails && $no_thumbnails > 0){
+					$image = null;
+					echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', sprintf( '<a href="%s" class="%s span five" title="%s"  data-rel="prettyPhoto[product-gallery]" style="display:none">%s</a>', $image_link, $image_class, $image_title, $image ), $attachment_id, $post->ID, $image_class );	
+				}
+				echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', sprintf( '<a href="%s" class="%s span five" title="%s"  data-rel="prettyPhoto[product-gallery]">%s</a>', $image_link, $image_class, $image_title, $image ), $attachment_id, $post->ID, $image_class );
+			}
+
 		}
-
-	?></div>
+		?>
+	</div>
+	</div>
 	<?php
 }

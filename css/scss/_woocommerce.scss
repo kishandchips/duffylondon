@@ -483,12 +483,6 @@
     			height: auto;
     		}
 
-    		h3{
-    			@media screen and (max-width:720px){
-    				font-size: 0.8em;
-    			}
-    		}
-
 			@media screen and (max-width:1024px){
 				&:nth-child(3n+1){
 					clear:both;

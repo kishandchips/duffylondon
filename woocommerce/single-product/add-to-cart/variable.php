@@ -78,15 +78,11 @@ global $woocommerce, $product, $post;
 		<?php do_action( 'woocommerce_before_add_to_cart_button' ); ?>
 
 		<div class="single_variation_wrap" style="display:none;">
-		<!-- 	<?php do_action( 'woocommerce_before_single_variation' ); ?> -->
-
-			
-		<!-- <div class="single_variation"></div> -->
 		<div class="variations_button">
 			<input type="hidden" name="variation_id" value="" />
 			<table class="variations-cart">
 				<tr>
-					<td><p itemprop="price" class="price">PRICE:<span class="single_variation"></span><?php echo $product->get_price_html(); ?></p></td>
+					<td><p itemprop="price" class="price">PRICE: <span class="single_variation"></span><?php echo $product->get_price_html(); ?></p></td>
 					<td class="submit"><button type="submit" class="single_add_to_cart_button button alt"><?php echo apply_filters('single_add_to_cart_text', __( 'Add to cart', 'woocommerce' ), $product->product_type); ?></button></td>
 				</tr>
 			</table>

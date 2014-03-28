@@ -24,9 +24,13 @@ get_header('shop'); ?>
 
 	?>
 
-	<div class="options clearfix">
-		<?php do_action('woocommerce_archive_options'); ?>
-	</div>
+	<?php if(!is_tax( 'product_cat', 'archive' )): ?>
+
+		<div class="options clearfix">
+			<?php do_action('woocommerce_archive_options'); ?>
+		</div>
+
+	<?php endif; ?>
 
 		<?php if ( apply_filters( 'woocommerce_show_page_title', true ) ) : ?>
 
@@ -39,7 +43,6 @@ get_header('shop'); ?>
 		<?php do_action( 'woocommerce_archive_description' ); ?>
 
 		<?php if ( have_posts() ) : ?>
-
 			<?php
 				/**
 				 * woocommerce_before_shop_loop hook

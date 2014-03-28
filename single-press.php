@@ -27,8 +27,9 @@
 					<li class=" span one-fourth">
 						<a href="<?php echo $image['url']; ?>" class="lightbox-btn">
 							<img src="<?php echo $image['sizes']['misc-thumb'];?>" alt="<?php echo $image['alt']; ?>">
-							<h3><?php the_sub_field('name'); ?></h3>
+							<div class="overlay"></div>
 						</a>
+						<h3><?php the_sub_field('name'); ?></h3>
 					</li>
 
 				<?php endwhile; ?>

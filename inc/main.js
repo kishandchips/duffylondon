@@ -245,11 +245,9 @@
 				});
 			},
 			resize: function(){
-				header = $('#header');
 				var windowWidth = $(window).width(),
-					windowHeight = $(window).height(),
-					availSpace = $(window).height()-header.outerHeight();
-					
+					windowHeight = $(window).height();
+					header = $('#header');
 
 				if(windowWidth <= 480){
 					$('.nav-title').addClass('mobile');
@@ -275,43 +273,45 @@
 		 		this.mainDiv = $('#main');
 		 		this.footer = $('#footer');
 
+				this.docHeight = this.body.outerHeight();
 		       	this.footerHeight = this.footer.outerHeight();
 		        this.headerHeight = this.header.outerHeight();
 
+		 		console.log(main.menu.docHeight);
+		 		console.log(main.menu.footerHeight);
+		 		console.log(main.menu.headerHeight);
+
 		 		this.handlers();
 		 		this.testMargin();
+
 			},
 
 			handlers: function(){
-				body = $('body');
 
 				$('nav a[href="#footer"]').on('click', function(event){
 			        event.preventDefault();
-			        bodyHeight = body.outerHeight();
 
 			        if(!main.menu.body.hasClass('home') && main.menu.wrap.hasClass('fixed-footer')){
 			        	main.menu.mainDiv.addClass('marginator');
-			        	bodyHeight = body.outerHeight();
-			        	main.menu.animate(bodyHeight);
+			        	main.menu.animate();
 			        }else{
-			        	main.menu.animate(bodyHeight);
+			        	main.menu.animate();
 			        }
 			    });
 			},
 
-			animate: function(bodyHeight){
+			animate: function(){
 				if(main.menu.header.css('position') == 'fixed'){
-		        	$('body').animate({scrollTop: (bodyHeight - main.menu.footerHeight) - main.menu.headerHeight},1000);
+
+		        	$('body').animate({scrollTop: (main.menu.docHeight - main.menu.footerHeight) - main.menu.headerHeight},1000);
 		        } else{
-		        	$('body').animate({scrollTop: (bodyHeight - main.menu.footerHeight)},1000);
+		        	$('body').animate({scrollTop: (main.menu.docHeight - main.menu.footerHeight)},1000);
 		        }
 			},
 
 			testMargin: function(){
 				if(main.menu.body.hasClass('home') && main.menu.wrap.hasClass('fixed-footer')){
 					main.menu.mainDiv.addClass('marginator');
-				}else{
-					main.menu.mainDiv.removeClass('marginator');
 				}
 			},
 
@@ -330,9 +330,15 @@
 
 	$(function(){
 		main.init();
+
 	});
 
 	$(window).load(function(){
+		// main.setFooterHeight();
+		console.log(main.menu.docHeight);
+		 		console.log(main.menu.footerHeight);
+		 		console.log(main.menu.headerHeight);
+
 	})
 
 })(jQuery);

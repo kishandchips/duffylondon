@@ -41,7 +41,6 @@ main{
     position: relative;
     z-index: 105;
     margin:139px 0 1000px 0;
-    margin:139px 0 100vh 0;
     padding:0;
     background-color: #fff;
     border-left: 15px solid #000;
@@ -87,13 +86,8 @@ main{
     width: 100%;
     max-width: 1600px;
     background-color: #fff;
-    border-top: 15px solid #000;
     border-bottom:1px solid #000;
     @include box-sizing(border-box);
-
-    @media screen and (max-width: 768px) {
-        border-top:none;
-    }
 
     @media screen and (max-width:600px){
         position: relative;
@@ -102,53 +96,28 @@ main{
     @media screen and (max-height:700px){
         position: relative;
     }
-
-
-    .language-selector {
-        float: right;
-        margin: 0 0.3em 0 0;
-        @extend .clearfix;
-
-        li {
-            float: left;
-            a {
-                display: inline-block;
-                border: 1px solid #636363;
-                border-right: none;
-                padding: 1em;
-                background: #FFF;
-                @include font-size(8);
-                text-transform: uppercase;
-
-                
-
-                &:hover {
-                    color: #FFF;
-                    background: #5a5a5a;
-                } 
-            }
-
-            &:last-child {
-                a {
-                    border-right: 1px solid #636363;
-                }
-            }
-
-            &.current-lang a {
-                color: #FFF;
-                background: #636363;
-                &:hover {
-                    color: #FFF;
-                }
-            }
-        }
-    }
-
-
 }
 
 .lt-ie9 #header{
     position: relative;
+}
+
+.lang{
+    padding:0.2em;
+    padding-bottom:0;
+    text-align: right;
+    background-color: #2E2C2C;
+    border-bottom:15px solid #000;
+
+    @media screen and (max-width: 768px) {
+        border-top:none;
+    }
+
+    #lang_sel{
+        display: inline-block;
+        height: initial;
+        text-align: left;
+    }
 }
 
 #header nav{
@@ -195,7 +164,6 @@ main{
     background-size:cover;
     text-indent:-9999px;
 }
-
 
 /////////////////////////////
 /////////////////////////////// *ARCHIVES
@@ -244,7 +212,7 @@ main{
     }
 
     @media screen and (max-width: 720px){
-        padding-top: 55%;
+        padding-top: 60%;
     }
 
     @media screen and (max-width:480px){

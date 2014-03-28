@@ -1,18 +1,12 @@
 <?php get_header(); ?>
 
 <section class="featured-products">
-		<?php
-			$args = array(  
-			    'post_type' => 'product',  
-			    'meta_key' => '_featured',  
-			    'meta_value' => 'yes',  
-			    'posts_per_page' => 5
-			); 
-		?>  
-	  
-		<?php $featured_query = new WP_Query( $args ); ?>
-		<?php if ($featured_query->have_posts()) : while ($featured_query->have_posts()) : $featured_query->the_post(); ?>     
-		    <?php //$product = get_product( $post->ID );  ?>
+
+	<?php $feat_products = get_field('featured_products');
+	 
+	if( $feat_products ): ?>
+	    <?php foreach( $feat_products as $post): // variable must be called $post (IMPORTANT) ?>
+
 		    <?php $img_url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
 		    <?php $id = $post->ID; ?>
 			<?php $icon_image = get_field('icon'); ?>
@@ -47,8 +41,9 @@
 
 				</article>
 
-		<?php endwhile; endif;  ?>
-		<?php wp_reset_query(); ?>
+	    <?php endforeach; ?>
+	<?php endif; ?>
+	<?php wp_reset_postdata(); ?>
 </section>
 
 <section class="misc-products">
@@ -56,11 +51,21 @@
 	<?php $products = get_field('selected');
 	 
 	if( $products ): ?>
-	    <?php foreach( $products as $product): // variable must be called $post (IMPORTANT) ?>
+	    <?php foreach( $products as $post): // variable must be called $post (IMPORTANT) ?>
 	    
 	        <div class="misc-product span one-third">
-	            <a href="<?php the_permalink(); ?>" title="<?php echo get_the_title($product->ID); ?>">
-	            	<?php echo get_the_post_thumbnail($product->ID, 'misc-thumb');?>
+	            <a href="<?php the_permalink(); ?>" title="<?php echo get_the_title($post->ID); ?>" class="product">
+	            	<?php echo get_the_post_thumbnail($post->ID, 'misc-thumb');?>
+	            		<?php $icon_image = get_field('icon'); ?>
+
+						<div class="product-overlay">
+							<div class="product-icon white">
+		            			<?php if($icon_image): ?>
+		            				<p><?php echo file_get_contents($icon_image['url']); ?></p>
+								<?php endif; ?>
+								<p><?php the_title(); ?></p>
+							</div>							
+						</div>
 	            </a>
 	         </div>
 	    <?php endforeach; ?>
@@ -68,7 +73,7 @@
 
 </section>
 
-<div class="promo-text" style="background-image:url(<?php the_field('promo_bg');?>);">
+<div class="promo-text">
     <p class="text-frame gold">Have a look around</p>
 </div>
 

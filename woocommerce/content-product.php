@@ -29,18 +29,19 @@ if ( ! $product || ! $product->is_visible() )
 $woocommerce_loop['loop']++;
 
 // Extra post classes
-$classes = array('span one-sixth');
+$classes = array('span one-third');
 
 if ( 0 == ( $woocommerce_loop['loop'] - 1 ) % $woocommerce_loop['columns'] || 1 == $woocommerce_loop['columns'] )
 	$classes[] = 'first';
 if ( 0 == $woocommerce_loop['loop'] % $woocommerce_loop['columns'] )
 	$classes[] = 'last';
 ?>
+
 <li <?php post_class( $classes ); ?>>
 
 	<?php do_action( 'woocommerce_before_shop_loop_item' ); ?>
 
-	<a href="<?php the_permalink(); ?>">
+	<a href="<?php the_permalink(); ?>" class="product">
 
 		<?php
 			/**
@@ -51,8 +52,16 @@ if ( 0 == $woocommerce_loop['loop'] % $woocommerce_loop['columns'] )
 			 */
 			do_action( 'woocommerce_before_shop_loop_item_title' );
 		?>
+        <?php $icon_image = get_field('icon'); ?>
 
-		<h4><?php the_title(); ?></h4>
+		<div class="product-overlay">
+			<div class="product-icon white">
+    			<?php if($icon_image): ?>
+    				<p><?php echo file_get_contents($icon_image['url']); ?></p>
+				<?php endif; ?>
+				<p><?php the_title(); ?></p>
+			</div>							
+		</div>
 
 		<?php
 			/**

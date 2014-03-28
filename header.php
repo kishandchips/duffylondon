@@ -27,31 +27,31 @@
     <div class="loader"></div>
     <div class="overlay"></div>
 </div>
-<div class="site-container clearfix">
+<div id="wrap" class="site-container clearfix">
     
     <header id="header">
-
         <nav>
 
-            <h1 class="mob-logo">
-                <a href="<?php echo home_url(); ?>" class="logo">Duffy London</a>
+            <h1 class="logo-container">
+                <a href="<?php echo site_url(); ?>" class="logo">Duffy London</a>
             </h1>
-            <a href="#footer" class="button black left">
+
+            <a href="#footer" class="menu button black left">
                 Menu
             </a>
 
-            <h1 class="logo-container">
-                <a href="<?php echo home_url(); ?>" class="logo">Duffy London</a>
-            </h1>
-
-            <a href="<?php echo site_url(); ?>/cart" class="button black right">
+            <a href="<?php echo site_url(); ?>/cart" class="cart button black right">
                 <i class="icon-cart"></i>
                 <?php global $woocommerce; ?> 
                 <?php echo sprintf(_n('%d item', '%d items', $woocommerce->cart->cart_contents_count, 'woothemes'), $woocommerce->cart->cart_contents_count);?>
             </a>
-            <?php if(function_exists('pll_the_languages') && is_product()): ?>
+
+
+<!--             <?php if(function_exists('pll_the_languages') && is_product()): ?>
             <ul class="language-selector clearfix"><?php pll_the_languages(array('hide_if_no_translation' => 1)); ?></ul>
-            <?php endif; ?>
+            <?php endif; ?> -->
+
+
         </nav>
     </header>
 

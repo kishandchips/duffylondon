@@ -47,7 +47,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 				<?php the_field('product_details'); ?>
 				<?php if(get_field('product_video')): ?>
 				<div id="video_player">
-				    <a href="<?php the_field('product_video')?>?iframe=true&width=540&height=420" data-rel="prettyPhoto[product-gallery]" title="My YouTube Video">
+				    <a href="http://www.facebook.com/video/embed?video_id=<?php the_field('product_video')?>?iframe=true&width=540&height=420" data-rel="prettyPhoto[product-gallery]" title="<?php the_title(); ?> Product Video">
 				    	video
 				    </a>
 				</div>

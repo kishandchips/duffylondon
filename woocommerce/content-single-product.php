@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 	<div class="row grey-bg">
 		<?php do_action( 'woocommerce_before_single_product_summary' );?>
-
+		<?php do_action( 'woocommerce_product_thumbnails' );?>
 		<div class="summary entry-summary span five">
 				<?php $icon_image = get_field('icon'); ?>
 				
@@ -58,7 +58,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 								
 								<?php if(get_field('product_video')): ?>
 								<div id="video_player">
-								    <a href="<?php the_field('product_video')?>?iframe=true&width=540&height=420" data-rel="prettyPhoto[product-gallery]" title="My YouTube Video">
+								    <a href="http://www.facebook.com/video/embed?video_id=<?php the_field('product_video')?>?iframe=true&width=540&height=420" data-rel="prettyPhoto[product-gallery]" title="<?php the_title(); ?> Product Video">
 								    	video
 								    </a>
 								</div>

@@ -12,16 +12,20 @@ require( get_template_directory() . '/inc/default/shortcodes.php' );
 add_image_size( 'main-nav-thumb', 155, 110, true );
 add_image_size( 'misc-thumb', 500, 500, true );
 add_image_size('full-width', 1200, 9999, false);
+add_image_size('cat-thumb', 1200, 300, true);
 
 //Breadcrumbs and Wrappers
 remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 );
 
 //Archive Single Product
-// remove_action( 'woocommerce_before_single_product', 'woocommerce_show_messages', 10);
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
 remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
 remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
+
+//CONTENT_PRODUCT_CAT
+remove_action( 'woocommerce_before_subcategory_title', 'woocommerce_subcategory_thumbnail',10);
+add_action( 'woocommerce_before_subcategory_title', 'custom_woocommerce_subcategory_thumbnail',10 );
 
 
 //CONTENT_PRODUCT
@@ -32,7 +36,8 @@ remove_action( 'woocommerce_before_shop_loop','woocommerce_result_count', 20 );
 remove_action( 'woocommerce_before_shop_loop','woocommerce_catalog_ordering', 30);
 add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', 11);
 add_action('woocommerce_archive_options', 'woocommerce_result_count', 20);
-add_action('woocommerce_archive_options', 'woocommerce_catalog_ordering', 20);
+
+// add_action('woocommerce_archive_options', 'woocommerce_catalog_ordering', 20);
 
 //SINGLE PRODUCT
 add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 25 );
@@ -54,7 +59,7 @@ function custom_woocommerce_add_tagline(){
 function custom_woocommerce_after_single_product(){
 	$args = array(
 			'posts_per_page' => 6,
-			'columns' => 6,
+			'columns' => 3,
 			'orderby' => 'rand'
 		);
 
@@ -72,20 +77,15 @@ function single_product_wrapper_end(){
 
 //SHORTCODES
 
-//Add Button
+//Add Contact Button
+
+add_shortcode( 'button', 'add_button' );
+
 function add_button( $atts, $content = null ) {
 	$url = site_url('/contact' );  
-    return '<a href=" ' . $url . ' " class="button alt">'.$content.'</a>';  
+    return '<p class="test-contact"><strong>Get in touch for more information:</strong></p><p><a href=" ' . $url . ' " class="button alt">'.$content.'</a></p>';  
 }  
 
-//Product Details
-function display_product_details( ){
-	$content = get_field('product_details');
-	return $content;
-}
-
-add_shortcode( 'display-product-details', 'display_product_details' );
-add_shortcode( 'button', 'add_button' );
 
 
 //gforms_datepicker
@@ -140,12 +140,6 @@ add_filter( 'query_vars', 'custom_query_vars');
 add_filter( 'nmi_menu_item_content', 'md_nmi_custom_content', 10, 3 );
 
 
-//Custom shortcodes
-
-add_shortcode( 'phone_number', 'custom_phone_number');
-
-
-
 function custom_setup_theme() {
 	
 	add_theme_support( 'automatic-feed-links' );
@@ -154,7 +148,8 @@ function custom_setup_theme() {
 	add_theme_support('editor_style');
 
 	register_nav_menus( array(
-		'primary' => __( 'Primary', THEME_NAME ),
+		'primary' => __( 'Footer Main', THEME_NAME ),
+		'footer' => __( 'Footer Secondary', THEME_NAME ),
 		'subnavigation-test' => __( 'Testimonial', THEME_NAME ),
 		'subnavigation-press' => __( 'Press', THEME_NAME ),
 	) );
@@ -367,5 +362,36 @@ function custom_parse_query($query) {
 			'terms'    => 74,
 			'operator' => 'IN'
 		);
+	}
+}
+
+function custom_woocommerce_subcategory_thumbnail( $category ) {
+	$small_thumbnail_size  	= apply_filters( 'single_product_small_thumbnail_size', 'cat-thumb' );
+	$dimensions    			= wc_get_image_size( $small_thumbnail_size );
+	$thumbnail_id  			= get_woocommerce_term_meta( $category->term_id, 'thumbnail_id', true  );
+
+	if ( $thumbnail_id ) {
+		$image = wp_get_attachment_image_src( $thumbnail_id, $small_thumbnail_size  );
+		$image = $image[0];
+	} else {
+		$image = wc_placeholder_img_src();
+	}
+
+	if ( $image ) {
+		// Prevent esc_url from breaking spaces in urls for image embeds
+		// Ref: http://core.trac.wordpress.org/ticket/23605
+		$image = str_replace( ' ', '%20', $image );
+
+		echo '<img src="' . esc_url( $image ) . '" alt="' . esc_attr( $category->name ) . '" width="' . esc_attr( $dimensions['width'] ) . '" height="' . esc_attr( $dimensions['height'] ) . '" />';
+	}
+}
+
+add_filter( 'loop_shop_per_page', 'custom_shop_per_page', 20 );
+
+function custom_shop_per_page(){
+	if(isset($_GET['view_all'])) {
+		return -1;
+	} else {
+		return get_option( 'posts_per_page' );
 	}
 }
