@@ -23,62 +23,35 @@ remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_singl
 remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
 remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
 
-//CONTENT_PRODUCT_CAT
-remove_action( 'woocommerce_before_subcategory_title', 'woocommerce_subcategory_thumbnail',10);
-add_action( 'woocommerce_before_subcategory_title', 'custom_woocommerce_subcategory_thumbnail',10 );
-
-
 //CONTENT_PRODUCT
 remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price');
-remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart');
 remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash',10);
+remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart');
 remove_action( 'woocommerce_before_shop_loop','woocommerce_result_count', 20 );
 remove_action( 'woocommerce_before_shop_loop','woocommerce_catalog_ordering', 30);
 add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', 11);
 add_action('woocommerce_archive_options', 'woocommerce_result_count', 20);
+add_action('woocommerce_archive_options', 'woocommerce_pagination', 20);
 
-// add_action('woocommerce_archive_options', 'woocommerce_catalog_ordering', 20);
+//CONTENT PRODUCT CAT
+remove_action( 'woocommerce_before_subcategory_title', 'woocommerce_subcategory_thumbnail',10);
+add_action( 'woocommerce_before_subcategory_title', 'custom_woocommerce_subcategory_thumbnail',10 );
 
 //SINGLE PRODUCT
+remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
+remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15 );
 add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 25 );
 add_action('woocommerce_single_product_summary', 'custom_woocommerce_add_tagline', 15);
 add_action('woocommerce_after_single_product','custom_woocommerce_after_single_product',30 );
 add_action('custom_woocommerce_before_main_content', 'single_product_wrapper_start', 10);
 add_action('custom_woocommerce_after_main_content', 'single_product_wrapper_end', 10);
-remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
-remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15 );
+
 
 //CART
 remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10 );
 
-function custom_woocommerce_add_tagline(){
-	$tag = get_field('tagline');
-	echo '<p class="uppercase">' . $tag . '</p>';
-}
-
-function custom_woocommerce_after_single_product(){
-	$args = array(
-			'posts_per_page' => 6,
-			'columns' => 3,
-			'orderby' => 'rand'
-		);
-
-		woocommerce_related_products( apply_filters( 'woocommerce_output_related_products_args', $args ) );
-}
-
-function single_product_wrapper_start(){
-	echo '<div id="single-product">';
-}
-
-function single_product_wrapper_end(){
-	echo '</div>';
-}
-
 
 //SHORTCODES
-
-//Add Contact Button
-
 add_shortcode( 'button', 'add_button' );
 
 function add_button( $atts, $content = null ) {
@@ -86,27 +59,13 @@ function add_button( $atts, $content = null ) {
     return '<p class="test-contact"><strong>Get in touch for more information:</strong></p><p><a href=" ' . $url . ' " class="button alt">'.$content.'</a></p>';  
 }  
 
-
-
-//gforms_datepicker
-
 add_action( 'after_setup_theme', 'custom_setup_theme' );
-
 add_action( 'init', 'custom_init');
-
 add_action( 'wp', 'custom_wp');
-
 add_action( 'admin_menu', 'custom_remove_menus');
-
 add_action( 'widgets_init', 'custom_widgets_init' );
-
 add_action( 'wp_enqueue_scripts', 'custom_scripts', 30);
-
 add_action( 'wp_print_styles', 'custom_styles', 30);
-
-
-
-
 
 // Custom Filters
 
@@ -134,6 +93,39 @@ function custom_remove_your_shit(){
 	return false;
 }
 
+add_filter( 'loop_shop_per_page', 'custom_shop_per_page', 20 );
+
+function custom_shop_per_page(){
+	if(isset($_GET['view_all'])) {
+		return -1;
+	} else {
+		return get_option( 'posts_per_page' );
+	}
+}
+
+add_filter('parse_query', 'custom_parse_query');
+
+function custom_parse_query($query) {
+	if (!$query->is_main_query())
+		return;
+
+	//if(!is_admin() && isset($query->query_vars['post_type']) && $query->query_vars['post_type'] != 'product' ){
+	if(!is_admin() && (is_post_type_archive('product') || is_tax('product_cat'))){
+		$query->query_vars['tax_query'][] = array(
+			'taxonomy' => 'language',
+			'field'    => 'term_taxonomy_id',
+			'terms'    => 74,
+			'operator' => 'IN'
+		);
+	}
+}
+
+add_filter( 'upload_mimes', 'cc_mime_types' );
+
+function cc_mime_types( $mimes ){
+	$mimes['svg'] = 'image/svg+xml';
+	return $mimes;
+}
 
 add_filter( 'template_include', 'custom_template_include', 99 );
 add_filter( 'query_vars', 'custom_query_vars');
@@ -146,6 +138,7 @@ function custom_setup_theme() {
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support('woocommerce');
 	add_theme_support('editor_style');
+	add_editor_style('/editor-styles.css');
 
 	register_nav_menus( array(
 		'primary' => __( 'Footer Main', THEME_NAME ),
@@ -153,15 +146,6 @@ function custom_setup_theme() {
 		'subnavigation-test' => __( 'Testimonial', THEME_NAME ),
 		'subnavigation-press' => __( 'Press', THEME_NAME ),
 	) );
-
-	
-
-	//add_image_size( 'custom_medium', 706, 400, true);
-
-	add_editor_style('/editor-styles.css');
-
-	
-
 }
 
 function custom_init(){
@@ -195,35 +179,32 @@ function custom_init(){
 	    		'plural' => 'Press'
 	   		)
 	   	);
+	   	$exhibitions = new Custom_Post_Type( 'exhibition', 
+	 		array(
+	 			'capability_type' => 'post',
+	 		 	'publicly_queryable' => true,
+	   			'has_archive' => true, 
+	    		'exclude_from_search' => true,
+	    		'menu_position' => null,
+	    		'supports' => array('title', 'editor', 'page-attributes','thumbnail'),
+	    		'plural' => 'Exhibitions',
+	    		'taxonomies'          => array('year' ),
+	   		)
+	   	);
+
+	   	//taxonomy for exhibitions
+
+		$labels = array(
+			'name'                       => _x( 'Years', 'Taxonomy General Name', 'text_domain' ),
+			'singular_name'              => _x( 'Year', 'Taxonomy Singular Name', 'text_domain' )
+		);
+		$args = array(
+			'labels'                     => $labels,
+			'hierarchical'               => false,
+			'public'                     => true,
+		);
+		register_taxonomy( 'year', array( 'exhibition' ), $args );
 	}
-}
-
-function custom_wp(){
-	
-}
-
-function custom_widgets_init() {
-
-	// 	/********************** Sidebars ***********************/
-
-	register_sidebar( array(
-		'name' => __( 'Default', THEME_NAME ),
-		'id' => 'default',
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => '</aside>',
-		'before_title' => '<h6 class="widget-title">',
-		'after_title' => '</h6>',
-	) );
-
-	register_sidebar( array(
-		'name' => __( 'Footer', THEME_NAME ),
-		'id' => 'footer',
-		'before_widget' => '<aside id="%1$s" class="widget span one-third %2$s"><div class="inner">',
-		'after_widget' => '</div></aside>',
-		'before_title' => '<h6 class="widget-title">',
-		'after_title' => '</h6>',
-	) );
-
 }
 
 function custom_remove_menus () {
@@ -276,7 +257,6 @@ function custom_woocommerce_checkout_fields($fields){
 
 
 function custom_woocommerce_form_field_date($field, $key, $args, $value ){
-	
 	$checked = '';
 	
 	$field  = '<div class="form-row ' . esc_attr( implode( ' ', $args['class'] ) ) .'" id="field-' . esc_attr( $key ) . '">';
@@ -334,35 +314,33 @@ function custom_woocommerce_add_to_cart_validation($valid){
 	return $valid;
 }
 
-function md_nmi_custom_content( $content, $item_id, $label ) {
+function custom_woocommerce_add_tagline(){
+	$tag = get_field('tagline');
+	echo '<p class="uppercase">' . $tag . '</p>';
+}
 
+function custom_woocommerce_after_single_product(){
+	$args = array(
+			'posts_per_page' => 6,
+			'columns' => 3,
+			'orderby' => 'rand'
+		);
+
+		woocommerce_related_products( apply_filters( 'woocommerce_output_related_products_args', $args ) );
+}
+
+function single_product_wrapper_start(){
+	echo '<div id="single-product">';
+}
+
+function single_product_wrapper_end(){
+	echo '</div>';
+}
+
+function md_nmi_custom_content( $content, $item_id, $label ) {
 	$image = get_the_post_thumbnail( $item_id, 'main-nav-thumb', array( 'alt' => $label, 'title' => $label ) );
 	$content = '<p class="nav-title">' . $label . '</p>'.$image;
   	return $content;
-}
-
-function cc_mime_types( $mimes ){
-	$mimes['svg'] = 'image/svg+xml';
-	return $mimes;
-}
-add_filter( 'upload_mimes', 'cc_mime_types' );
-
-
-add_filter('parse_query', 'custom_parse_query');
-
-function custom_parse_query($query) {
-	if (!$query->is_main_query())
-		return;
-
-	//if(!is_admin() && isset($query->query_vars['post_type']) && $query->query_vars['post_type'] != 'product' ){
-	if(!is_admin() && (is_post_type_archive('product') || is_tax('product_cat'))){
-		$query->query_vars['tax_query'][] = array(
-			'taxonomy' => 'language',
-			'field'    => 'term_taxonomy_id',
-			'terms'    => 74,
-			'operator' => 'IN'
-		);
-	}
 }
 
 function custom_woocommerce_subcategory_thumbnail( $category ) {
@@ -386,12 +364,4 @@ function custom_woocommerce_subcategory_thumbnail( $category ) {
 	}
 }
 
-add_filter( 'loop_shop_per_page', 'custom_shop_per_page', 20 );
 
-function custom_shop_per_page(){
-	if(isset($_GET['view_all'])) {
-		return -1;
-	} else {
-		return get_option( 'posts_per_page' );
-	}
-}
