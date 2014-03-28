@@ -61,9 +61,7 @@ function add_button( $atts, $content = null ) {
 
 add_action( 'after_setup_theme', 'custom_setup_theme' );
 add_action( 'init', 'custom_init');
-add_action( 'wp', 'custom_wp');
 add_action( 'admin_menu', 'custom_remove_menus');
-add_action( 'widgets_init', 'custom_widgets_init' );
 add_action( 'wp_enqueue_scripts', 'custom_scripts', 30);
 add_action( 'wp_print_styles', 'custom_styles', 30);
 
