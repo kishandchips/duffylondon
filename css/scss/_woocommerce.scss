@@ -83,6 +83,12 @@
 		content: "i";
 		font-family: Times, Georgia, serif;
 		font-style: italic;
+		top:initial;
+	}
+
+	.showlogin{
+		color:#9F977A;
+
 	}
 }
 .woocommerce-error {
@@ -462,15 +468,13 @@
 		}
 
 		li.product-category{
-			width: 80%;
-			max-height: 300px;
-			margin-left:10%;
 
 			h3{
-				display: inline-block;
+				display: inline-block !important;
 				position:relative;
 				top:50%;
 				@include translateY(-50%);
+				color: #fff;
 			}
 		}
 
@@ -1274,14 +1278,15 @@
 
 		.form-row-first, .form-row-last {
 			float:left;
-			width: 47%;
+			width: 48%;
+			margin-right: 1%;
 			overflow: visible;
 			@media screen and (max-width:800px){
 				width: 80%;
 			}
 		}
 		.form-row-last {
-			float: right;
+			float: left;
 		}
 		.form-row-wide {
 			clear: both;
@@ -1553,6 +1558,10 @@
 
 		.payment_method_stripe{
 
+			label{
+				margin-bottom: 0.5em;
+			}
+
 			.card-number{
 				width: 50%;
 
@@ -1575,7 +1584,7 @@
 			padding: 1em;
 
 			&.place-order{
-				margin:0;
+				margin:0 1em 0 0;
 				padding: 1em 0 0 0;
 			}
 		}
@@ -1593,7 +1602,8 @@
 			}
 		}
 		.terms {
-			padding: 0 1em 0;
+			margin:0.5em 0 0 0;
+			padding:0;
 			text-align: right;
 			display: block;
 
@@ -1604,7 +1614,7 @@
 		div.payment_box {
 			position: relative;
 			width: 96%;
-			padding: 1em 2%;
+			padding: 1em 0;
 			margin: 1em 0 1em 0;
 			font-size: 0.92em;
 			@include border-radius(2px);
@@ -1651,7 +1661,8 @@
 	#order_review {
 		background-color:#fff;
 		border-top: 1px solid #cccccc;
-		margin: 0 0 2em 0;
+		margin: 0;
+		padding-bottom:2em;
 
 		header{
 			margin:2em 0;

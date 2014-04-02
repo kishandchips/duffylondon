@@ -5,8 +5,20 @@
 body{
     background-color:#000;
     color: #333;
-
+    // border-bottom:15px solid black;
     @include avenir;
+
+    &:after{
+        content:"";
+        display: block;
+        position:fixed;
+        bottom:0;
+        z-index: 9999;
+        width:100%;
+        max-width: 1585px;
+        height:15px;
+        background-color: #000;
+    }
 
     @media screen and (min-width:1400px){
         font-size: 115%;
@@ -14,6 +26,14 @@ body{
     @media screen and (min-width:1600px){
         font-size: 125%;
     }
+    @media screen and (max-width:767px){
+        &:after{
+            display:none;
+            height:0;
+        }
+    }
+
+
 }
 
 #wrap{
@@ -536,10 +556,15 @@ a.product{
             border:1px solid #333;
             @include brandon-bold;
             @include box-shadow(rgba(0,0,0,0.2) 0px 3px 3px 1px);
-
+            @include single-transition(all,0.3s);
             @media screen and (max-width:480px){
                 font-size: 0.9em;
                 padding:10px 10px 9px 10px;
+            }
+
+            &:hover{
+                color: #fff;
+                background-color:#BAB38F;
             }
 
         }
@@ -965,17 +990,17 @@ div.content-contact{
     border-right: 15px solid #000;
     @include box-sizing(border-box);
 
-    &:after{
-        content:"";
-        display: block;
-        position:fixed;
-        bottom:0;
-        z-index: 9999;
-        width:100%;
-        max-width: 1585px;
-        height:15px;
-        background-color: #000;
-    }
+    // &:after{
+    //     content:"";
+    //     display: block;
+    //     position:fixed;
+    //     bottom:0;
+    //     z-index: 9999;
+    //     width:100%;
+    //     max-width: 1585px;
+    //     height:15px;
+    //     background-color: #000;
+    // }
 
     @media screen and (max-width: 767px){
         border-left:none;

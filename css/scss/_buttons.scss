@@ -62,5 +62,10 @@ a.button, .button{
         @include brandon-bold;
         @include border-radius(0);
         @include box-shadow(rgba(0,0,0,0.2) 0px 3px 3px 1px);
+
+        &:hover{
+            color: #fff;
+            background-color:#BAB38F;
+        }
     }
 

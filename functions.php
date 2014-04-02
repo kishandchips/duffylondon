@@ -12,7 +12,7 @@ require( get_template_directory() . '/inc/default/shortcodes.php' );
 add_image_size( 'main-nav-thumb', 155, 110, true );
 add_image_size( 'misc-thumb', 500, 500, true );
 add_image_size('full-width', 1200, 9999, false);
-add_image_size('cat-thumb', 1200, 300, true);
+// add_image_size('cat-thumb', 1200, 300, true);
 
 //Breadcrumbs and Wrappers
 remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 );
@@ -34,8 +34,8 @@ add_action('woocommerce_archive_options', 'woocommerce_result_count', 20);
 add_action('woocommerce_archive_options', 'woocommerce_pagination', 20);
 
 //CONTENT PRODUCT CAT
-remove_action( 'woocommerce_before_subcategory_title', 'woocommerce_subcategory_thumbnail',10);
-add_action( 'woocommerce_before_subcategory_title', 'custom_woocommerce_subcategory_thumbnail',10 );
+// remove_action( 'woocommerce_before_subcategory_title', 'woocommerce_subcategory_thumbnail',10);
+// add_action( 'woocommerce_before_subcategory_title', 'custom_woocommerce_subcategory_thumbnail',10 );
 
 //SINGLE PRODUCT
 remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
@@ -341,24 +341,24 @@ function md_nmi_custom_content( $content, $item_id, $label ) {
   	return $content;
 }
 
-function custom_woocommerce_subcategory_thumbnail( $category ) {
-	$small_thumbnail_size  	= apply_filters( 'single_product_small_thumbnail_size', 'cat-thumb' );
-	$dimensions    			= wc_get_image_size( $small_thumbnail_size );
-	$thumbnail_id  			= get_woocommerce_term_meta( $category->term_id, 'thumbnail_id', true  );
+// function custom_woocommerce_subcategory_thumbnail( $category ) {
+// 	$small_thumbnail_size  	= apply_filters( 'single_product_small_thumbnail_size', 'cat-thumb' );
+// 	$dimensions    			= wc_get_image_size( $small_thumbnail_size );
+// 	$thumbnail_id  			= get_woocommerce_term_meta( $category->term_id, 'thumbnail_id', true  );
 
-	if ( $thumbnail_id ) {
-		$image = wp_get_attachment_image_src( $thumbnail_id, $small_thumbnail_size  );
-		$image = $image[0];
-	} else {
-		$image = wc_placeholder_img_src();
-	}
+// 	if ( $thumbnail_id ) {
+// 		$image = wp_get_attachment_image_src( $thumbnail_id, $small_thumbnail_size  );
+// 		$image = $image[0];
+// 	} else {
+// 		$image = wc_placeholder_img_src();
+// 	}
 
-	if ( $image ) {
-		// Prevent esc_url from breaking spaces in urls for image embeds
-		// Ref: http://core.trac.wordpress.org/ticket/23605
-		$image = str_replace( ' ', '%20', $image );
+// 	if ( $image ) {
+// 		// Prevent esc_url from breaking spaces in urls for image embeds
+// 		// Ref: http://core.trac.wordpress.org/ticket/23605
+// 		$image = str_replace( ' ', '%20', $image );
 
-		echo '<img src="' . esc_url( $image ) . '" alt="' . esc_attr( $category->name ) . '" width="' . esc_attr( $dimensions['width'] ) . '" height="' . esc_attr( $dimensions['height'] ) . '" />';
-	}
-}
+// 		echo '<img src="' . esc_url( $image ) . '" alt="' . esc_attr( $category->name ) . '" width="' . esc_attr( $dimensions['width'] ) . '" height="' . esc_attr( $dimensions['height'] ) . '" />';
+// 	}
+// }
 

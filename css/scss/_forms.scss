@@ -167,7 +167,9 @@ fieldset {
 					}
 				}
 
-				.gfield_label{
+				label.gfield_label{
+					display: inline-block;
+					margin-bottom:0.5em;
 					@include avenir;
 					font-size: 0.889em;
 					font-weight: 700;
@@ -212,11 +214,17 @@ fieldset {
 		        @include brandon-bold;
 		        @include border-radius(0);
 		        @include box-shadow(rgba(0,0,0,0.2) 0px 3px 3px 1px);
+		        @include transition(all,0.3s);
 
 	 			@media screen and (max-width:520px){
 	 				float:none;
 	 				width: 100%;
 	 			}
+
+	 			&:hover{
+                	color: #fff;
+                	background-color:#BAB38F;
+            	}
 
 	 		}
 	 	}
@@ -233,6 +241,10 @@ fieldset {
 			.gform_drop_area{
 				padding: 2em 1em;
 				border:1px dotted #E2E2E2;
+
+				span.gform_drop_instructions{
+					margin-right: 0.5em;
+				}
 			}
 
 			.gform_button_select_files{
