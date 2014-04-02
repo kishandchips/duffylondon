@@ -17,7 +17,7 @@ wc_print_notices();
 
 	<?php do_action( 'woocommerce_cart_is_empty' ); ?>
 	
-	<span class="return-to-shop"><a class="button wc-backward" href="<?php echo get_permalink( wc_get_page_id( 'shop' ) ); ?>"><?php _e( 'Return To Shop', 'woocommerce' ) ?></a></span>
+	<span class="return-to-shop"><a class="button wc-backward" href="<?php echo site_url(); ?>"><?php _e( 'Return To Shop', 'woocommerce' ) ?></a></span>
 </div>
 
 

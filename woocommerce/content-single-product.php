@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 								
 <div itemscope itemtype="http://schema.org/Product" id="product-<?php the_ID(); ?>"  <?php post_class(); ?>>
 
-	<div class="row grey-bg">
+	<div class="showcase-product row grey-bg">
 		<?php do_action( 'woocommerce_before_single_product_summary' );?>
 		<?php do_action( 'woocommerce_product_thumbnails' );?>
 		<div class="summary entry-summary span five">

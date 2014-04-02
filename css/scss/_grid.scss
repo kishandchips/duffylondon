@@ -68,7 +68,7 @@ $i: 1;
 	.pull-#{$class} {
 		margin-left: -($width);
 	}
-	$i: $i + 1;
+	$i: $i + 1 !global;
 }
 
 .break-on-tablet {

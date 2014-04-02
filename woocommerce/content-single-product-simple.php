@@ -29,9 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 					</div>
 				<?php endif; ?>
 				
-				<?php do_action( 'woocommerce_single_product_summary' ); ?>				
-
-
+				<?php do_action( 'woocommerce_single_product_summary' ); ?>
 		</div><!-- .summary -->
 
 	</div><!-- .row -->

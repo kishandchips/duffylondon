@@ -60,12 +60,12 @@ text-align: center;
     }
 }
 
-.product-icon.white path{
+.white path{
 	fill:#fff;
 
 }
 
-.product-icon.black path{
+.black path{
 	fill:#000;
 
 }
@@ -88,7 +88,7 @@ text-align: center;
 
 	.gold{
 		color:$light-gold;
-		border:1px solid $light-gold;
+		
 	}
 	
 
@@ -179,20 +179,6 @@ img {
 
 }
 
-.alert {
-	padding-left: 2em;
-	position: relative;
-
-	&:before {
-		position: absolute;
-		top: 0;
-		left: 0;
-		@extend [class*="icon-"];
-		@extend .icon-alert:before;
-		color: #326ba1;
-		font-size: 1.5em;
-	}
-}
 
 ul{
 	list-style:none;

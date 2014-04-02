@@ -56,7 +56,7 @@ add_shortcode( 'button', 'add_button' );
 
 function add_button( $atts, $content = null ) {
 	$url = site_url('/contact' );  
-    return '<p class="test-contact"><strong>Get in touch for more information:</strong></p><p><a href=" ' . $url . ' " class="button alt">'.$content.'</a></p>';  
+    return '<div class="content-contact"><strong>Get in touch for more information:</strong><p><a href=" ' . $url . ' " class="button alt">'.$content.'</a></p></div>';  
 }  
 
 add_action( 'after_setup_theme', 'custom_setup_theme' );
@@ -361,5 +361,4 @@ function custom_woocommerce_subcategory_thumbnail( $category ) {
 		echo '<img src="' . esc_url( $image ) . '" alt="' . esc_attr( $category->name ) . '" width="' . esc_attr( $dimensions['width'] ) . '" height="' . esc_attr( $dimensions['height'] ) . '" />';
 	}
 }
-
 

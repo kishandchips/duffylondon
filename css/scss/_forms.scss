@@ -105,7 +105,7 @@ fieldset {
 
 .variations_form {
 	label{
-		@extend brandon;
+		@include brandon;
 		font-weight:normal;
 		text-transform: uppercase;
 	}
@@ -115,8 +115,8 @@ fieldset {
    ========================================================================== */
 
 .gform_wrapper {
-	max-width: 100% !important;
- 	margin: 0 !important;
+	max-width: 100%;
+ 	margin: 0;
 
  	&.gf_browser_chrome {
  		.gfield_checkbox li input[type=checkbox],
@@ -126,100 +126,85 @@ fieldset {
  		}
 
  	}
- 	form {
-		.gform_heading {
-			margin-bottom: 0;
-			.gform_title {
-				font-weight: normal;
-				// @include font-size(20);
-				// margin-bottom: 10px;
-			}
-		}
 
+ 	form {
 		div.validation_error {
-			text-align: center;
-			@include font-size(12);
-			font-weight: normal;
 			margin: 0 0 1em 0;
-			color: #e74c3c;
-			border: 3px solid #e74c3c;
+			padding: 1em;
+			color: #fff;
+			font-size: 1em;
+			font-weight: normal;
+			text-align: center;
+			background-color: rgba(231, 76, 60,0.7);
 		}
 
 	 	.gform_body {
-			.gform_fields {
-				margin: 0;
+
+ 			.gfield {
+ 				margin-bottom: 1.5em;
 				padding: 0;
-				list-style: none;
-				@extend .clearfix;
+			
+				&.col{
+					display: inline-block;
+					width: 49%;
+					margin-left: 2%;
 
-	 			.gfield {
-	 				margin-bottom: 3em;
-					padding: 0;
-					&.gfield_error {
-						border: none;
-						background: none;
-						label {
-							color: #333;
-						}
+					&:first-child{
+						margin-left: 0;
 					}
 
-					.gfield_label{
-						@include brandon-bold;
+					@media screen and (max-width:400px){
+						width: 100%;
+						margin-left: 0;
 					}
+				}
 
-					&.gsection {
-						border-bottom: 1px solid #ececec;
+				&.gfield_error {
+					border: none;
+					background: none;
+					label {
+						color: #333;
 					}
+				}
 
-					&.hide-label {
-						.gfield_label {
-							display: none;
-						}
-					}
-					&.gf_left_half,
-					&.gf_right_half {
-						margin-bottom: 0;
+				.gfield_label{
+					@include avenir;
+					font-size: 0.889em;
+					font-weight: 700;
+				}
 
-						@include device-width(5) {
-							width: auto;
-							float: none;
-						}
+				.ginput_container {
+					input[type=text],
+					input[type=email],
+					input[type=url],
+					input[type=tel],
+					input[type=number],
+					input[type=password], 
+					textarea,
+					select {
+						width: 100%;
+						padding: 0.4em;
+						border:1px solid #c2c2c2
 					}
+				}
 
-					.ginput_container {
-						input[type=text],
-						input[type=email],
-						input[type=url],
-						input[type=tel],
-						input[type=number],
-						input[type=password], 
-						textarea,
-						select {
-							width: 100%;
-							padding: 0.4em;
-							border:1px solid #c2c2c2
-						}
+				.gfield_description {
+					&.validation_message {
+						padding: 0.5em 0 0 0 !important;
+						margin: 0;
+						color: #df5206;
 					}
-
-					.gfield_description {
-						&.validation_message {
-							padding: 0.5em 0 0 0 !important;
-							margin: 0;
-							color: #df5206;
-						}
-					}
-	 			}
-	 		}
+				}
+ 			}	
 	 	}
 
 	 	.gform_footer {
 	 		margin: 1em 0;
-	 		padding: 0 1em 0 0;
+	 		padding: 0;
 	 		@extend .clearfix;
 
 	 		.button {
 	 			display: inline-block;
-		        padding: 1em 2.1em;
 		        color: #333;
 		        text-transform: uppercase;
 		        background-color: #fff;
@@ -236,4 +221,37 @@ fieldset {
 	 		}
 	 	}
 	}
+
+	&.vacancy-form_wrapper{
+		margin-top: 2em;
+
+		.gfield.file{
+			.ginput_container{
+				text-align:center;
+			}
+
+			.gform_drop_area{
+				padding: 2em 1em;
+				border:1px dotted #E2E2E2;
+			}
+
+			.gform_button_select_files{
+				padding: 0.6em 0.8em;
+				color: #636363;
+				background-color: transparent;
+				border: 1px solid #636363;
+
+				&:hover{
+					color: #fff;
+					background-color: #636363;
+				}
+			}
+		}//gfield.file
+	}//vacancy-form_wrapper
+}
+
+#gforms_confirmation_message{
+	padding: 1em;
+	color:#fff;
+	background-color:rgba(26, 188, 156,0.5);
 }
