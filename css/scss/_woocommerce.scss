@@ -40,23 +40,21 @@
 		width: 1.5em;
 		display:block;
 		position:absolute;
-		top: 1.3em;
 		left: 1em;
 		font-family: sans-serif;
 		font-size:1em;
-		line-height: 1.5;
 		text-align: center;
 		color: #fff;
 		text-shadow:0 1px 0 rgba(0,0,0,0.2);
 		@include border-radius(1em);	
 	}
 
-	a {
-		color: #fff; 
-
-		&:hover{
-			color: #BAB38F;
-		}
+	a.button{
+		float:right;
+		padding:0;
+		font-size: 1em;
+		color:#DBD0A9;
+		border:none;
 	}
 
 	li {

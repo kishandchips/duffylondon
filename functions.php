@@ -12,7 +12,6 @@ require( get_template_directory() . '/inc/default/shortcodes.php' );
 add_image_size( 'main-nav-thumb', 155, 110, true );
 add_image_size( 'misc-thumb', 500, 500, true );
 add_image_size('full-width', 1200, 9999, false);
-add_image_size('cat-thumb', 1200, 300, true);
 
 //Breadcrumbs and Wrappers
 remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 );
@@ -23,11 +22,6 @@ remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_singl
 remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
 remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
 
-//CONTENT_PRODUCT_CAT
-// remove_action( 'woocommerce_before_subcategory_title', 'woocommerce_subcategory_thumbnail',10);
-// add_action( 'woocommerce_before_subcategory_title', 'custom_woocommerce_subcategory_thumbnail',10 );
-
-
 //CONTENT_PRODUCT
 remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price');
 remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart');
@@ -37,7 +31,6 @@ remove_action( 'woocommerce_before_shop_loop','woocommerce_catalog_ordering', 30
 add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', 11);
 add_action('woocommerce_archive_options', 'woocommerce_result_count', 20);
 
-// add_action('woocommerce_archive_options', 'woocommerce_catalog_ordering', 20);
 
 //SINGLE PRODUCT
 add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 25 );
@@ -138,6 +131,12 @@ function custom_remove_your_shit(){
 add_filter( 'template_include', 'custom_template_include', 99 );
 add_filter( 'query_vars', 'custom_query_vars');
 add_filter( 'nmi_menu_item_content', 'md_nmi_custom_content', 10, 3 );
+add_filter('show_admin_bar', 'disable_admin_bar', 10, 1 );
+
+function disable_admin_bar($show_admin_bar){
+	$show_admin_bar = false;
+	return $show_admin_bar;
+}
 
 
 function custom_setup_theme() {
