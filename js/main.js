@@ -279,6 +279,7 @@
 
 		menu:{
 			init: function(){
+				
 				this.body = $('body');
 		 		this.header = $('header');
 		 		this.wrap = $('#wrap');
@@ -296,6 +297,7 @@
 				body = $('body');
 
 				$('nav a[href="#footer"]').on('click', function(event){
+					
 			        event.preventDefault();
 			        bodyHeight = body.outerHeight();
 
@@ -310,10 +312,11 @@
 			},
 
 			animate: function(bodyHeight){
+				
 				if(main.menu.header.css('position') == 'fixed'){
-		        	$('body').animate({scrollTop: (bodyHeight - main.menu.footerHeight) - main.menu.headerHeight},1000);
+		        	$('html, body').animate({scrollTop: (bodyHeight - main.menu.footerHeight) - main.menu.headerHeight},1000);
 		        } else{
-		        	$('body').animate({scrollTop: (bodyHeight - main.menu.footerHeight)},1000);
+		        	$('html, body').animate({scrollTop: (bodyHeight - main.menu.footerHeight)},1000);
 		        }
 			},
 

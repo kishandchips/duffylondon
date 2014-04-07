@@ -44,10 +44,11 @@
 			wp_nav_menu( $menu_args );
 
 			?>
-		</div>	
-	</div>
+		</div><!--  other links -->
+	</div><!-- footer secondary -->
 
 </footer>
+</div><!-- wrap -->
 	<?php wp_footer(); ?>
 </body>
 </html>
