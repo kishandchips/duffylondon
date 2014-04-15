@@ -459,7 +459,8 @@
 	ul.products {
 		position: relative;
 		z-index: 1;
-		margin:0 -10px; 		
+		margin:0 -10px; 	
+		overflow: hidden;	
 
 		@media screen and (max-width: 768px){
 			margin: 0;
@@ -1321,7 +1322,6 @@
 
 	form.login{
 		margin:0;
-		padding: 2em 35%;
 		color: #fff;
 		background-color: #333;
 
