@@ -15,8 +15,8 @@
 
 
 
-			 $('.product-icon svg').attr({width: '60px', height: '60px'});
-			 $('.product-overlay .product-icon svg').attr({width: '150px', height: '150px'});
+			$('.product-icon svg').attr({width: '60px', height: '60px'});
+			$('.product-overlay .product-icon svg').attr({width: '150px', height: '150px'});
 		
 			this.lightbox.init();
 			this.menu.init();
@@ -301,6 +301,7 @@
 			        event.preventDefault();
 			        bodyHeight = body.outerHeight();
 
+			        // If this page is NOT home and the footer is fixed add bottom margin using the marginator class
 			        if(!main.menu.body.hasClass('home') && main.menu.wrap.hasClass('fixed-footer')){
 			        	main.menu.mainDiv.addClass('marginator');
 			        	bodyHeight = body.outerHeight();
@@ -313,14 +314,18 @@
 
 			animate: function(bodyHeight){
 				
+				// If the header is fixed, animate the scroll and remove the header height.
 				if(main.menu.header.css('position') == 'fixed'){
 		        	$('html, body').animate({scrollTop: (bodyHeight - main.menu.footerHeight) - main.menu.headerHeight},1000);
 		        } else{
 		        	$('html, body').animate({scrollTop: (bodyHeight - main.menu.footerHeight)},1000);
 		        }
 			},
-
+			
+			// Check to see if the body needs a bottom margin. This is used to stop the menu from being displayed on all pages.
 			testMargin: function(){
+
+				// If this IS home and the footer is FIXED then we want a bottom margin.
 				if(main.menu.body.hasClass('home') && main.menu.wrap.hasClass('fixed-footer')){
 					main.menu.mainDiv.addClass('marginator');
 				}else{
