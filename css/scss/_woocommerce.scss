@@ -1476,6 +1476,10 @@
 
 			.notes {
 				clear:left;
+
+				textarea{
+					height:200px;
+				}
 			}
 
 			.form-row-first {
@@ -1603,8 +1607,11 @@
 		.terms {
 			margin:0.5em 0 0 0;
 			padding:0;
-			text-align: right;
 			display: block;
+
+			input[type="checkbox"]{
+				margin-left: 1em;
+			}
 
 			@media screen and (max-width:480px){
 				font-size: 80%;

@@ -20,7 +20,7 @@ Template Name: Contact Page
 
 		<div class="span three">
 			<?php $image = get_field('map_picture'); ?>
-			<a href="<?php the_field('map_directions'); ?>" title="Google Map Directions to Duffy London">
+			<a href="<?php the_field('map_directions'); ?>" title="Google Map Directions to Duffy London" target="_blank">
 				<img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>">
 			</a>
 
