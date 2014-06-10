@@ -180,6 +180,8 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 				<p class="form-row terms">
 					<input type="checkbox" class="input-checkbox" name="terms" <?php checked( $terms_is_checked, true ); ?> id="terms" />
 					<label for="terms" class="checkbox"><?php _e( 'I have read and accept the', 'woocommerce' ); ?> <a href="<?php echo esc_url( get_permalink(wc_get_page_id('terms')) ); ?>" target="_blank"><?php _e( 'terms &amp; conditions', 'woocommerce' ); ?></a></label>
+					<p class="terms2">Order with an obligation to pay, by ticking this box you acknowledge
+you have an obligation to pay for the product(s) you have ordered.</p>
 				</p>
 			<?php } ?>
 
