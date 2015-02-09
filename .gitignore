@@ -3,3 +3,5 @@
 .sass-cache
 /images/templates/Archive.zip
 .sftp-config.json
+config.codekit
+config.rb
