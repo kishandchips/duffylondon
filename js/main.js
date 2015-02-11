@@ -1,6 +1,7 @@
 ;(function($) {
 	window.main = {
 		vars: {},
+		w : $(window),
 		init: function(){
 
 			var wrap = main.vars.wrap = $('#wrap'),
@@ -19,10 +20,12 @@
 			$('.product-overlay .product-icon svg').attr({width: '150px', height: '150px'});
 		
 			this.lightbox.init();
-			this.menu.init();
-			this.responsiveMenu.init();
 
-			$(window).on('resize', this.resize).trigger('resize');
+
+			this.menu.init();
+
+			main.w.on('load', this.resize);
+			main.w.on('resize', this.resize);
 
 		},
 
@@ -234,82 +237,46 @@
 			}
 		},
 
-		responsiveMenu: {
-			init: function(){
-				$('.nav-title').on('click', function(e){
-
-					if($('.nav-title').hasClass('mobile')){
-						e.preventDefault();
-						$(this).parent().siblings(".sub-menu").toggleClass('show');
-					}
-				});
-			},
-			resize: function(){
-				header = $('#header');
-				footer = $('#footer');
-				var windowWidth = $(window).width(),
-					windowHeight = $(window).height(),
-					availSpace = $(window).height()-header.outerHeight();
-					
-
-				if(windowWidth <= 480){
-					$('.nav-title').addClass('mobile');
-				} else{
-					$('.nav-title').removeClass('mobile');
-   				}
-
-   				//check if footer should be fixed
-   				if(main.vars.footer.height() > windowHeight) {
-   					main.vars.wrap.removeClass('fixed-footer');
-   				} else {
- 					main.vars.wrap.addClass('fixed-footer')
-   				}
-
-   				//check if main needs top margin
-   				if(header.css('position') == 'fixed'){
-   					$('#main').css('margin-top', header.outerHeight());
-   					footer.css('padding-top', header.outerHeight());
-   				}
-
-   				if(header.css('position') == 'fixed' && !main.menu.wrap.hasClass('fixed-footer')){
-   					footer.css('padding-top', 0);
-   				}
-			}
-		},
-
 		menu:{
 			init: function(){
 				
+				this.wrap = $('#wrap');
 				this.body = $('body');
-		 		this.header = $('header');
-		 		this.wrap = $('#wrap');
-		 		this.mainDiv = $('#main');
+		 		this.header = $('#header');
 		 		this.footer = $('#footer');
 
 		       	this.footerHeight = this.footer.outerHeight();
 		        this.headerHeight = this.header.outerHeight();
 
-		 		this.handlers();
-		 		this.testMargin();
+		 		this.triggers();
 			},
 
-			handlers: function(){
-				body = $('body');
+			triggers: function(){
 
+				// Menu Button
 				$('nav a[href="#footer"]').on('click', function(event){
-					
 			        event.preventDefault();
-			        bodyHeight = body.outerHeight();
+			        bodyHeight = main.menu.body.outerHeight();
 
-			        // If this page is NOT home and the footer is fixed add bottom margin using the marginator class
 			        if(!main.menu.body.hasClass('home') && main.menu.wrap.hasClass('fixed-footer')){
-			        	main.menu.mainDiv.addClass('marginator');
-			        	bodyHeight = body.outerHeight();
+			        	bodyHeight = main.menu.body.outerHeight();
 			        	main.menu.animate(bodyHeight);
 			        }else{
 			        	main.menu.animate(bodyHeight);
 			        }
 			    });
+
+				// Footer Menu
+				this.link = $('.nav-title');
+
+				this.link.on('click', function(e){
+					var el = $(this);
+
+					if(el.hasClass('mobile')){
+						e.preventDefault();
+						el.parent().siblings(".sub-menu").toggleClass('show');
+					}
+				});
 			},
 
 			animate: function(bodyHeight){
@@ -321,26 +288,30 @@
 		        	$('html, body').animate({scrollTop: (bodyHeight - main.menu.footerHeight)},1000);
 		        }
 			},
-			
-			// Check to see if the body needs a bottom margin. This is used to stop the menu from being displayed on all pages.
-			testMargin: function(){
 
-				// If this IS home and the footer is FIXED then we want a bottom margin.
-				if(main.menu.body.hasClass('home') && main.menu.wrap.hasClass('fixed-footer')){
-					main.menu.mainDiv.addClass('marginator');
-				}else{
-					main.menu.mainDiv.removeClass('marginator');
-				}
-			},
+			resize: function(width, height){
+				// Check for fixed footer
+				if( width > 750 && height > 650 ){
+					$('#wrap').addClass('fixed-footer');
+				} else {
+					$('#wrap').removeClass('fixed-footer');
+				}	
 
-			resize: function(){
-				testMargin();
+				// Check for mobile
+				var link = main.menu.link;
+
+				if(width <= 480){
+					link.addClass('mobile');
+				} else{
+					link.removeClass('mobile');
+   				}			
 			}
 		},//menu
 
 		resize: function(){
-			main.responsiveMenu.resize();
-			main.menu.testMargin();
+			var width = main.w.outerWidth();
+			var height = main.w.outerHeight();
+			main.menu.resize(width, height);
 		}
 
 	}
@@ -349,8 +320,5 @@
 	$(function(){
 		main.init();
 	});
-
-	$(window).load(function(){
-	})
 
 })(jQuery);
