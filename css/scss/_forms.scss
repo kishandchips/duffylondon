@@ -262,6 +262,10 @@ fieldset {
 	}//vacancy-form_wrapper
 }
 
+.gform_wrapper .gform_body .gfield.gform_validation_container {
+display: none;
+}
+
 #gforms_confirmation_message{
 	padding: 1em;
 	color:#fff;

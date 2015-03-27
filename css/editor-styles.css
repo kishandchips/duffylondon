@@ -910,6 +910,9 @@ fieldset {
         color: #fff;
         background-color: #636363; }
 
+.gform_wrapper .gform_body .gfield.gform_validation_container {
+  display: none; }
+
 #gforms_confirmation_message {
   padding: 1em;
   color: #fff;
