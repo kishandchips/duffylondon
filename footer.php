@@ -7,16 +7,13 @@
 
 		<?php
 
-		$menu_args = array(
-			'theme_location'  => '',
-			'menu'            => 'primary',
+		wp_nav_menu( array(
+			'theme_location'  => 'primary',
 			'menu_class'	  => 'menu clearfix',
 			'container'       => 'false',
 			'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>'
 
-		);
-
-		wp_nav_menu( $menu_args );
+		) );
 
 		?>
 	</nav>
