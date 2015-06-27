@@ -2,14 +2,16 @@
 /**
  * Variable product add to cart
  *
- * @author 		WooThemes
- * @package 	WooCommerce/Templates
- * @version     2.1.0
+ * @author  WooThemes
+ * @package WooCommerce/Templates
+ * @version 2.3.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-global $woocommerce, $product, $post;
+global $product, $post;
 ?>
 
 <?php do_action( 'woocommerce_before_add_to_cart_form' ); ?>
@@ -83,7 +85,9 @@ global $woocommerce, $product, $post;
 			<table class="variations-cart">
 				<tr>
 					<td><p itemprop="price" class="price">PRICE: <span class="single_variation"></span><?php echo $product->get_price_html(); ?></p></td>
-					<td class="submit"><button type="submit" class="single_add_to_cart_button button alt"><?php echo apply_filters('single_add_to_cart_text', __( 'Add to cart', 'woocommerce' ), $product->product_type); ?></button></td>
+					<td class="submit">
+					<button type="submit" class="single_add_to_cart_button button alt"><?php echo $product->single_add_to_cart_text(); ?></button>
+					</td>
 				</tr>
 			</table>
 		</div>

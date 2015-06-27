@@ -4,29 +4,32 @@
  *
  * @author 		WooThemes
  * @package 	WooCommerce/Templates
- * @version     2.1.0
+ * @version     2.3.6
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 ?>
 <div class="cart_totals <?php if ( WC()->customer->has_calculated_shipping() ) echo 'calculated_shipping'; ?>">
 
 	<?php do_action( 'woocommerce_before_cart_totals' ); ?>
+
 	<header class="line-header">
 		<h2 class="title"><?php _e( 'Cart Totals', 'woocommerce' ); ?></h2>
 	</header>
 
-
 	<table cellspacing="0">
 
 		<tr class="cart-subtotal">
-			<th><?php _e( 'Cart Subtotal', 'woocommerce' ); ?></th>
+			<th><?php _e( 'Subtotal', 'woocommerce' ); ?></th>
 			<td><?php wc_cart_totals_subtotal_html(); ?></td>
 		</tr>
 
-		<?php foreach ( WC()->cart->get_coupons( 'cart' ) as $code => $coupon ) : ?>
+		<?php foreach ( WC()->cart->get_coupons() as $code => $coupon ) : ?>
 			<tr class="cart-discount coupon-<?php echo esc_attr( $code ); ?>">
-				<th><?php _e( 'Coupon:', 'woocommerce' ); ?> <?php echo esc_html( $code ); ?></th>
+				<th><?php wc_cart_totals_coupon_label( $coupon ); ?></th>
 				<td><?php wc_cart_totals_coupon_html( $coupon ); ?></td>
 			</tr>
 		<?php endforeach; ?>
@@ -38,6 +41,13 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 			<?php wc_cart_totals_shipping_html(); ?>
 
 			<?php do_action( 'woocommerce_cart_totals_after_shipping' ); ?>
+
+		<?php elseif ( WC()->cart->needs_shipping() ) : ?>
+
+			<tr class="shipping">
+				<th><?php _e( 'Shipping', 'woocommerce' ); ?></th>
+				<td><?php woocommerce_shipping_calculator(); ?></td>
+			</tr>
 
 		<?php endif; ?>
 
@@ -59,22 +69,15 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 			<?php else : ?>
 				<tr class="tax-total">
 					<th><?php echo esc_html( WC()->countries->tax_or_vat() ); ?></th>
-					<td><?php echo wc_price( WC()->cart->get_taxes_total() ); ?></td>
+					<td><?php wc_cart_totals_taxes_total_html(); ?></td>
 				</tr>
 			<?php endif; ?>
 		<?php endif; ?>
 
-		<?php foreach ( WC()->cart->get_coupons( 'order' ) as $code => $coupon ) : ?>
-			<tr class="order-discount coupon-<?php echo esc_attr( $code ); ?>">
-				<th><?php _e( 'Coupon:', 'woocommerce' ); ?> <?php echo esc_html( $code ); ?></th>
-				<td><?php wc_cart_totals_coupon_html( $coupon ); ?></td>
-			</tr>
-		<?php endforeach; ?>
-
 		<?php do_action( 'woocommerce_cart_totals_before_order_total' ); ?>
 
 		<tr class="order-total">
-			<th><?php _e( 'Order Total', 'woocommerce' ); ?></th>
+			<th><?php _e( 'Total', 'woocommerce' ); ?></th>
 			<td><?php wc_cart_totals_order_total_html(); ?></td>
 		</tr>
 
@@ -97,3 +100,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 	<?php do_action( 'woocommerce_after_cart_totals' ); ?>
 
 </div>
+<?php if ( is_cart() ) : ?>
+	<?php woocommerce_shipping_calculator(); ?>
+<?php endif; ?>
+

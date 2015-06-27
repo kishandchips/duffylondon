@@ -2,20 +2,23 @@
 /**
  * Lost password form
  *
- * @author      WooThemes
- * @package     WooCommerce/Templates
- * @version     2.0.0
+ * @author  WooThemes
+ * @package WooCommerce/Templates
+ * @version 2.3.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
 
-global $woocommerce, $post; ?>
-
+?>
 <div class="page-header">
     <h2 class="text-frame gold"><?php _e( 'Lost Password', 'woocommerce' ); ?></h2>
 </div>
 
 <div class="messages-container clearfix">
+<?php wc_print_notices(); ?>
+
 <?php wc_print_notices(); ?>
 
 <form method="post" class="lost_reset_password">
@@ -46,8 +49,11 @@ global $woocommerce, $post; ?>
 
     <div class="clear"></div>
 
-    <p class="form-row"><input type="submit" class="button" name="wc_reset_password" value="<?php echo 'lost_password' == $args['form'] ? __( 'Reset Password', 'woocommerce' ) : __( 'Save', 'woocommerce' ); ?>" /></p>
+    <p class="form-row">
+        <input type="hidden" name="wc_reset_password" value="true" />
+        <input type="submit" class="button" value="<?php echo 'lost_password' == $args['form'] ? __( 'Reset Password', 'woocommerce' ) : __( 'Save', 'woocommerce' ); ?>" />
+    </p>
+
     <?php wp_nonce_field( $args['form'] ); ?>
 
 </form>
-</div>
