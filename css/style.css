@@ -1231,6 +1231,8 @@ ul {
   -------------------------------------------------------------- */
   /* =Layered Nav Widget
   -------------------------------------------------------------- */ }
+  .woocommerce #single-product .quantity, .woocommerce-page #single-product .quantity {
+    display: none; }
   .woocommerce small.note, .woocommerce-page small.note {
     display: block;
     font-size: 11px;

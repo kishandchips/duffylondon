@@ -23,7 +23,7 @@ if ( $attachment_ids ) {
 
 		foreach ( $attachment_ids as $attachment_id ) {
 
-			$classes = array( 'zoom' );
+			$classes = array( 'zoom', 'span', 'five' );
 
 			if ( $loop == 0 || $loop % $columns == 0 )
 				$classes[] = 'first';
