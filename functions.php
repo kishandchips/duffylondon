@@ -97,6 +97,8 @@ add_action( 'wp_enqueue_scripts', 'custom_scripts', 30);
 
 add_action( 'wp_print_styles', 'custom_styles', 30);
 
+if( function_exists('acf_add_options_page') ) acf_add_options_page();
+
 
 
 

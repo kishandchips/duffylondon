@@ -2919,6 +2919,8 @@ div.thumbnails {
         margin-right: 0; } }
   div.thumbnails a {
     margin-bottom: 1em; }
+    div.thumbnails a .span.five {
+      padding: 0; }
   @media screen and (max-width: 900px) {
     div.thumbnails {
       width: 100%; }
